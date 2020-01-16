@@ -72,14 +72,13 @@ app.get('/pets/:id',async (req, res)=> {
 
 // CREATING A NEW PET
 app.get('/pets/create', requireLogin, (req, res) => {
-    console.log('you want the form');
-    console.log('yes you are at /pets/create');
+    
     res.send('yes you are at /pets/create');
 
     // express will look in templates/pets/form.html
     res.render('pets/form', {
         locals: {
-            pet_name: '',
+            name: '',
             image: '',
             species: '',
             birthdate: '',
@@ -111,6 +110,48 @@ app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
 
     res.redirect(`/pets/${newPetId}`);
 });
+
+
+//////// EDIT / UPDATE PETS ////////
+
+app.get('/pets/:id/edit', requireLogin, async (req, res) => {
+
+    const { id } = req.params;
+    const thePet = await pets.getPet(id);
+
+    res.render('pets/form', {
+        locals: {
+            name: thePet.name,
+            image: thePet.image,
+            species: thePet.species,
+            birthdate: dateToFormattedString(thePet.birthdate),
+            pet_location: thePet.pet_location,
+            color: thePet.color,
+            gender: thePet.gender,
+            size: thePet.size,
+            pet_description: thePet.pet_description
+        }
+    });
+});
+app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
+    const { name, species, birthdate, pet_location, color, gender, size, pet_description } = req.body;
+    const { id } = req.params;
+    const result = await pets.updatePet(id, name, species, birthdate, pet_location, color, gender, size, pet_description);
+    if (result) {
+        res.redirect(`/pets/${id}`);
+    } else {
+        res.redirect(`/pets/${id}/edit`)
+    }
+});
+
+//////// DELETE PET ////////
+app.get('/pets/:id/delete')
+app.post('/pets/:id/delete')
+
+
+
+////// USER LOGIN /////
+
 
 
 

@@ -51,17 +51,20 @@ returning id
 };
 
 
-
-
-async function updateName(id,name) {
+//////// EDIT / UPDATE PETS ////////
+async function updatePet(id, name, species, birthdate, pet_location, color, gender, size, pet_description) {
     const result = await db.result(`
-
-        update pets set 
-            name=$1
-            where id=$2;
-    `, [name, id]);
-
-
+        update pets set
+            name=$2,
+            species=$3,
+            birthdate=$4,
+            pet_location=$5,
+            color=$6,
+            gender=$7,
+            size=$8,
+            pet_description=$9
+        where id=$1;
+    `, [id, name, species, birthdate, pet_location, color, gender, size, pet_description]);  
     if (result.rowCount === 1) {
         return id;
     } else {
@@ -69,12 +72,108 @@ async function updateName(id,name) {
     }
 }
 
-// async function  updatebirthdate(id, birthdate){
+// update pet name
 
-// }
-//to delete pets using id
+async function updatePetName(id, name) {
+    const result = await db.result(`
+        update pets set
+            name=$1
+        where id=$2;
+    `, [name, id]);  
+    if (result.rowCount === 1) {
+        return id;
+    } else {
+        return null;
+    }
+};
 
-async function del(id) {
+// update pet species
+async function updatePetSpecies(id, species) {
+    const result = await db.result(`
+        update pets set
+            species=$1
+        where id=$2;
+    `, [species, id]);  
+    if (result.rowCount === 1) {
+        return id;
+    } else {
+        return null;
+    }
+};
+
+// update pet birthdate
+async function updatePetBirthdate(id, dateObject) {
+    const dateString = dateToFormattedString(dateObject);
+    const result = await db.result(`
+        update pets set
+            birthdate=$1
+        where id=$2
+    `, [dateString, id]);
+    return result;
+};
+
+// update pet location
+async function updatePetLocation(id, pet_location) {
+    const result = await db.result(`
+        update pets set
+            pet_location=$1
+        where id=$2
+    `, [pet_location, id]);
+    return result;
+};
+
+// update pet color
+async function updatePetColor(id, color) {
+    const result = await db.result(`
+        update pets set
+            color=$1
+        where id=$2
+    `, [color, id]);
+    return result;
+};
+
+// update pet color
+async function updatePetGender(id, gender) {
+    const result = await db.result(`
+        update pets set
+            gender=$1
+        where id=$2
+    `, [gender, id]);
+    return result;
+};
+
+// update pet size
+async function updatePetSize(id, size) {
+    const result = await db.result(`
+        update pets set
+            size=$1
+        where id=$2
+    `, [size, id]);
+    return result;
+};
+
+// update pet description
+async function updatePetDescription(id, pet_description) {
+    const result = await db.result(`
+        update pets set
+            pet_description=$1
+        where id=$2
+    `, [pet_description, id]);
+    return result;
+};
+
+// update pet image
+async function updatePetImage(id, image) {
+    const result = await db.result(`
+        update pets set
+            image=$1
+        where id=$2
+    `, [image, id]);
+    return result;
+};
+
+// Delete Pet
+async function delPet(id) {
     const result = await db.result(`delete from pets where id=$1`, [id]);
     console.log(result);
     if (result.rowCount === 1) {
@@ -82,15 +181,27 @@ async function del(id) {
     } else {
         return null;
     }
-}
+};
+
 
 module.exports = {
     allPets,
     getPet,
     createPet,
-    //getPetByBreed
-    // del,
-    // updateName,
-    
+    updatePet,
+    updatePetName,
+    updatePetSpecies,
+    updatePetBirthdate,
+    updatePetLocation,
+    updatePetColor,
+    updatePetGender,
+    updatePetSize,
+    updatePetDescription,
+    updatePetImage,
+    delPet
 
-}
+    //getPetByBreed
+
+
+
+};
