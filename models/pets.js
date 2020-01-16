@@ -1,5 +1,13 @@
 const db = require('./connection');
 
+async function getPet(id) {
+    try {
+        const onePet = await db.one(`select * from pets where id=$1`, [id]);
+        return onePet;
+    } catch (err) {
+        return null;
+    }
+}
 
 async function updateName(id,name) {
     const result = await db.result(`
@@ -8,6 +16,8 @@ async function updateName(id,name) {
             name=$1
             where id=$2;
     `, [name, id]);
+
+
     if (result.rowCount === 1) {
         return id;
     } else {
@@ -31,6 +41,10 @@ async function del(id) {
 }
 
 module.exports = {
+
+    del,
     updateName,
-    del
+    getPet
+    
+
 }

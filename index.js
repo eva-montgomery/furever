@@ -23,6 +23,25 @@ const server = http.createServer(app);
 
 const pets = require('./models/pets');
 
+// //async function main() {
+//     const result = await pets.updateName(1, 'Peter');
+//     console.log(result);
+
+
+// }
+
+// main();
+// async function main() {
+//     const result = await pets.del(1);
+//     console.log(result);
+
+// }
+
+app.get('/pets/:id',async (req, res)=> {
+    //console.log(pets.getPet(req.params.id));
+    res.json(await pets.getPet(req.params.id));
+
+})
 
 async function main() {
     const result = await pets.updateName(1, 'Maggie');
@@ -34,6 +53,7 @@ async function main() {
     console.log(result);
 
 }
+
 
 
 server.listen(PORT, () => {
