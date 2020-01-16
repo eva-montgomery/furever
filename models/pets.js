@@ -7,7 +7,7 @@ async function updateName(id,name) {
         update pets set 
             name=$1
             where id=$2;
-    `, []);
+    `, [name, id]);
     if (result.rowCount === 1) {
         return id;
     } else {
@@ -15,9 +15,9 @@ async function updateName(id,name) {
     }
 }
 
-async function  updatebirthdate(id, birthdate){
+// async function  updatebirthdate(id, birthdate){
 
-}
+// }
 //to delete pets using id
 
 async function del(id) {
@@ -31,5 +31,6 @@ async function del(id) {
 }
 
 module.exports = {
+    updateName,
     del
 }

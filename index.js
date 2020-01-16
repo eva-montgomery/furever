@@ -25,12 +25,15 @@ const pets = require('./models/pets');
 
 
 async function main() {
+    const result = await pets.updateName(1, 'Maggie');
+    console.log(result);
+
+}
+async function main() {
     const result = await pets.del(1);
     console.log(result);
 
 }
-
-
 
 
 server.listen(PORT, () => {
