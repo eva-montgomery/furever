@@ -19,7 +19,7 @@ create table breeds (
 create table pets (
     id serial primary key,
     name text,
-    picture text,
+    image text,
     species text,
     birthdate date,
     pet_location text,

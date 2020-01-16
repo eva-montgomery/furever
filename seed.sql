@@ -26,7 +26,7 @@ values
 
 
 insert into pets
-    (name, picture, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id)
+    (name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id)
 values
     ('Princess', 'princess.jpg', 'dog', '2015-10-09', 'Atlanta', 'red', 'F', 'small', 'Hi my name is Princess and I am a sweet little Pomeranian girl with the temper of a big dog. I love snuggles and playing with my toys. I really do not like other dogs that much but I do love kitty cats. I think they are great to play with. My does not get along well with other dogs but she does get along with cats. My current owner unfortunately got knocked up with 3 pairs of twins since I was born and she is not able to give me the love I deserve. Also, I do not like to share my toys with little humans.', 2, 3),
 
@@ -36,7 +36,7 @@ values
 
     ('Pretzel', 'pretzel.jpg', 'dog', '2010-11-12', 'Decatur', 'white/black', 'M', 'mid-sized', 'Looking for a badass. I already have a good ass! The way I wiggle my cute little but when I walk through the dog park does not only make furry men turn around! I also make a great wingman by the way since I want to meet everyone I see on the street. My mama works in a smokey place all night and she likes to bring home different humans which I do not agree with. I do not like to be by myself, especially when it is dark outside. Therefore, I am looking for a new mom or dad!', 4, 5),
 
-    ('Manny', 'manny.jpg', 'dog', '2010-11-12', 'Decatur', 'white/black', 'M', 'mid-sized', 'Sorry ladies (or gentlemen), I do not have the dad bod you want, but I do have the couch potato qualities you are secretely seeking for! I will happily share my pizza (that you of course buy) with you, if you give me the belly rubs I demand. I am a laid back kind of dude and prefer evenings on the couch with my human over hanging out with other pups at the dog park. My "player" games are over so I will leave that to the younger folks. My current human aged so quickly he shriveled up into an old man skeleton thing before he turned into dust and died a swift yet horrifying death.', 4, 5)
+    ('Manny', 'manny.jpg', 'dog', '2018-10-02', 'Decatur', 'white/black', 'M', 'mid-sized', 'Sorry ladies (or gentlemen), I do not have the dad bod you want, but I do have the couch potato qualities you are secretely seeking for! I will happily share my pizza (that you of course buy) with you, if you give me the belly rubs I demand. I am a laid back kind of dude and prefer evenings on the couch with my human over hanging out with other pups at the dog park. My "player" games are over so I will leave that to the younger folks. My current human aged so quickly he shriveled up into an old man skeleton thing before he turned into dust and died a swift yet horrifying death.', 4, 5)
    ;
 
 insert into adoption_status
