@@ -4,13 +4,9 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-const session = require('express-session');
+//const session = require('express-session');
 
-// const FileStore = require('session-file-store')(session);
-// app.use(session({
-//     store: new FileStore({}),
-//     secret: 'lalala1234lalala'
-// }));
+
 
 const es6Renderer = require('express-es6-template-engine');
 app.engine('html', es6Renderer);
@@ -23,6 +19,19 @@ const parseForm = bodyParser.urlencoded({
 });
 
 const server = http.createServer(app);
+
+
+const pets = require('./models/pets');
+
+
+async function main() {
+    const result = await pets.del(1);
+    console.log(result);
+
+}
+
+
+
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
