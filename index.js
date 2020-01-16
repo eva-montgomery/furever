@@ -27,6 +27,7 @@ const pets = require('./models/pets');
 //     const result = await pets.updateName(1, 'Peter');
 //     console.log(result);
 
+
 // }
 
 // main();
@@ -41,6 +42,17 @@ app.get('/pets/:id',async (req, res)=> {
     res.json(await pets.getPet(req.params.id));
 
 })
+
+async function main() {
+    const result = await pets.updateName(1, 'Maggie');
+    console.log(result);
+
+}
+async function main() {
+    const result = await pets.del(1);
+    console.log(result);
+
+}
 
 
 
