@@ -57,6 +57,14 @@ const partials = {
     footer: 'partials/footer',
 };
 
+/// LANDING PAGE //// 
+app.get('/', (req, res) => {
+    res.render('landingpage', {
+      
+        partials,
+    });
+});
+
 // login required function
 function requireLogin(req, res, next) {
     if (req.session && req.session.users) {
@@ -100,6 +108,7 @@ app.get('/pets/:id(\\d+)/',async (req, res)=> {
 
 
 // CREATING A NEW PET
+
 app.get('/pets/create', requireLogin, async (req, res) => {
     console.log("hererere")
     //res.send('yes you are at /pets/create');
@@ -187,7 +196,7 @@ app.post('/pets/:id/delete')
 
 
 
-
+//// SIGN UP FUNCTION /////
 
 app.get('/signup', (req, res) => {
     res.render('users/signup', {
