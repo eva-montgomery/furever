@@ -74,14 +74,21 @@ app.get('/pets', requireLogin, async (req, res) => {
     const allPets = [];
     const thePets = await pets.allPets();
     res.json(thePets);
-    
-    // res.render('pets', {
-    //     locals: {
-    //       thePets: allPets.join(''),
-    //     },
-    //     partials
-    // });
+  
 });
+
+// get pet by id
+app.get('/pets/:id(\\d+)/',async (req, res)=> {
+    //console.log(pets.getPet(req.params.id));
+    const thePet = await pets.getPet(req.params.id);
+     res.render('pets', {
+        locals: {
+            ...thePet
+        },
+        partials
+    });
+});
+
 
 // get pet by breed --> not working
 // app.get('/pets/:breed',async (req, res)=> {
@@ -145,7 +152,7 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
     const { id } = req.params;
     const thePet = await pets.getPet(id);
 
-    res.render('templates/pets/form', {
+    res.render('pets/form', {
         locals: {
             name: thePet.name,
             image: thePet.image,
@@ -156,7 +163,8 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
             gender: thePet.gender,
             size: thePet.size,
             pet_description: thePet.pet_description
-        }
+        },
+        partials,
     });
 });
 
@@ -171,11 +179,7 @@ app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
     }
 });
 
-// get pet by id
-app.get('/pets/:id(\\d+)/',async (req, res)=> {
-    //console.log(pets.getPet(req.params.id));
-    res.json(await pets.getPet(req.params.id));
-});
+
 
 //////// DELETE PET ////////
 app.get('/pets/:id/delete')
@@ -224,7 +228,8 @@ app.get('/signup', (req, res) => {
             email: '',
             phone_number: '',
             location: '',
-        }
+        },
+        partials,
     });
 });
 
@@ -258,7 +263,12 @@ app.post('/signup', parseForm, async (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    res.render('users/auth');
+    res.render('users/auth', {
+        locals: {
+
+        },
+        partials
+    });
 });
 app.post('/login', parseForm, async (req, res) => {
     const { user_name, password } = req.body;
