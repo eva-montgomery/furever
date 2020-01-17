@@ -109,7 +109,8 @@ app.get('/pets/create', requireLogin, async (req, res) => {
             gender: '',
             size: '',
             pet_description: '',
-        }
+        },
+        partials,
     });
 });
 
