@@ -18,7 +18,10 @@ async function createUsername(user_name,first_name, last_name,phone_number,user_
         phone_number,
         user_location
     };
-    console.log(newUser);   
+    console.log(newUser);  
+    const returningId = await db.one("insert into users (user_name,first_name, last_name,phone_number,user_location,email, hash)values ($1, $2, $3,$4,$5,$6,$7)returning id ", [user_name,first_name, last_name,phone_number,user_location,email, hash])
+    return returningId
+     
 }
 
 // Retrieve

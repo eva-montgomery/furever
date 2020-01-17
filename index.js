@@ -180,39 +180,49 @@ app.post('/pets/:id/delete')
 
 
 
-////// USER LOGIN /////
-// Login!
-app.get('/login', (req, res) => {
-    res.render('users/auth');
-});
-app.post('/login', parseForm, async (req, res) => {
-    console.log(req.body);
-    const { name, password } = req.body;
-    const didLoginSuccessfully = await users.login(name, password);
-    if (didLoginSuccessfully) {
-        console.log(`yay! you logged in!`);
+//// USER LOGIN /////
+//Login!
+// app.get('/login', (req, res) => {
+//     res.render('users/auth');
+// });
+// app.post('/login', parseForm, async (req, res) => {
+//     console.log(req.body);
+//     const { name, password } = req.body;
+//     const didLoginSuccessfully = await users.login(name, password);
+//     if (didLoginSuccessfully) {
+//         console.log(`yay! you logged in!`);
 
-        // Assuming users have unique names:
-        const theUser = await users.getByUsername(name);
+//         // Assuming users have unique names:
+//         const theUser = await users.getByUsername(name);
 
-        // Add some info to the user's session
-        req.session.user = {
-            name,
-            id: theUser.id
-        };
-        req.session.save(() => {
-            console.log('The session is now saved!!!');
-            // This avoids a long-standing
-            // bug in the session middleware
-            res.redirect('/profile');
-        });
-    } else {
-        console.log(`boooooooo. that is not correct`);
-    }
-});
+//         // Add some info to the user's session
+//         req.session.user = {
+//             name,
+//             id: theUser.id
+//         };
+//         req.session.save(() => {
+//             console.log('The session is now saved!!!');
+//             // This avoids a long-standing
+//             // bug in the session middleware
+//             res.redirect('/profile');
+//         });
+//     } else {
+//         console.log(`boooooooo. that is not correct`);
+//     }
+// });
 
 app.get('/signup', (req, res) => {
-    res.render('users/auth');
+    res.render('users/signup', {
+        locals: {
+            user_name: '',
+            password: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone_number: '',
+            location: '',
+        }
+    });
 });
 
 
@@ -225,11 +235,11 @@ app.post('/signup', parseForm, async (req, res) => {
         console.log(`yay! you signed in!`);
 
         // Assuming users have unique names:
-        const theUser = await users.getByUsername(name);
+        const theUser = await users.getByUsername(user_name);
 
         // Add some info to the user's session
-        req.session.user = {
-            name,
+        req.session.users = {
+            user_name,
             id: theUser.id
         };
         req.session.save(() => {
@@ -249,12 +259,12 @@ app.get('/login', (req, res) => {
 });
 app.post('/login', parseForm, async (req, res) => {
     console.log(req.body);
-    const { name, password } = req.body;
-    const didLoginSuccessfully = await users.login(email, password);
+    const { user_name, password } = req.body;
+    const didLoginSuccessfully = await users.login(user_name, password);
     if (didLoginSuccessfully) {
         console.log(`the user has logged in!`);
 
-        const theUser = await users.getByEmail(email);
+        const theUser = await users.getByUsername(user_name);
         req.session.user = {
             name,
             id: theUser.id
@@ -277,9 +287,9 @@ app.get('/logout', (req, res) => {
 });
 
 
-// /////// SIGN UP ///////
+/////// SIGN UP ///////
 // app.get('/signup', (req, res) => {
-//     res.render('users/auth', {
+//     res.render('users/signup', {
 //         locals: {
 //             user_name: '',
 //             password: '',
@@ -291,6 +301,7 @@ app.get('/logout', (req, res) => {
 //         }
 //     });
 // });
+    
 
 // app.post('/signup',  parseForm, async (req, res) => {
 //     // console.log(req.body);
@@ -316,7 +327,7 @@ app.get('/logout', (req, res) => {
 // "Profile" - list pets for this owner
 
 app.get('/profile', (req, res) => {
-  res.send(`Welcome back ${req.session.user.name}! It's time to find your pawesome match!`)
+  res.send(`Welcome back ${req.session.users.user_name}! It's time to find your pawesome match!`)
 });
 
 ////// UPDATE USER PROFILE /////////
