@@ -43,7 +43,7 @@ async function createPet(name, image, species, birthdate, pet_location, color, g
 insert into pets
     (name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id)
 values
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9; $10, $11)    
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)    
 returning id
     `, [name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id]);
 

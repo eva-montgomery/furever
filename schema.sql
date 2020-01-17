@@ -4,7 +4,7 @@ create table users (
     hash text,
     first_name text,
     last_name text,
-    email varchar(20),
+    email text,
     phone_number varchar(20),
     user_location text
 );
