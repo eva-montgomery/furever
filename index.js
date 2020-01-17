@@ -219,8 +219,8 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup', parseForm, async (req, res) => {
     console.log(req.body);
-    const { name, password } = req.body;
-    const didLoginSuccessfully = await users.signup(name, password);
+    const { user_name,first_name, last_name,phone_number,user_location,email, password } = req.body;
+    const didLoginSuccessfully = await users.createUsername(user_name,first_name, last_name,phone_number,user_location,email, password);
     if (didLoginSuccessfully) {
         console.log(`yay! you signed in!`);
 
