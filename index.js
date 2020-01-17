@@ -57,19 +57,30 @@ const partials = {
     footer: 'partials/footer',
 };
 
+// login required function
+function requireLogin(req, res, next) {
+    if (req.session && req.session.users) {
+        console.log('user is logged in')
+        next();
+    } else {
+        console.log('user is not logged in')
+        res.redirect('/login');
+    }
+};
+
 ///////// SEE PETS - FUNCTIONS //////////
 // get all pets
-app.get('/pets', async (req, res) => {
+app.get('/pets', requireLogin, async (req, res) => {
     const allPets = [];
     const thePets = await pets.allPets();
     res.json(thePets);
     
-    res.render('pets', {
-        locals: {
-          thePets: allPets.join(''),
-        },
-        partials
-    });
+    // res.render('pets', {
+    //     locals: {
+    //       thePets: allPets.join(''),
+    //     },
+    //     partials
+    // });
 });
 
 // get pet by breed --> not working
@@ -79,24 +90,15 @@ app.get('/pets', async (req, res) => {
 // });
 
 
-// login required function
-function requireLogin(req, res, next) {
-    if (req.session && req.session.user) {
-        console.log('user is logged in')
-        next();
-    } else {
-        console.log('user is not logged in')
-        res.redirect('/login');
-    }
-};
+
 
 // CREATING A NEW PET
-app.get('/pets/create', requireLogin,(req, res) => {
+app.get('/pets/create', requireLogin, async (req, res) => {
     console.log("hererere")
     //res.send('yes you are at /pets/create');
 
     // express will look in templates/pets/form.html
-    res.render('templates/pets/form', {
+    res.render('pets/form', {
         locals: {
             name: '',
             image: '',
@@ -112,7 +114,7 @@ app.get('/pets/create', requireLogin,(req, res) => {
 });
 
 app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
-    console.log(req.body.image);
+    //console.log(req.body.image);
     console.log(req.body.species);
     console.log(req.body.species);
     console.log(req.body.birthdate);
@@ -125,7 +127,7 @@ app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
 
     const { name, image, species, birthdate, pet_location, color, gender, size, pet_description,breed_id } = req.body;
     
-    const user_id = req.session.user.id;
+    const user_id = req.session.users.id;
     const newPetId = await pets.createPet(name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id);
     console.log(`The new pet id is ${newPetId}`);
 
@@ -258,15 +260,17 @@ app.get('/login', (req, res) => {
     res.render('users/auth');
 });
 app.post('/login', parseForm, async (req, res) => {
-    console.log(req.body);
     const { user_name, password } = req.body;
+    console.log("===== index.js line 262")
+    console.log(req.body);
     const didLoginSuccessfully = await users.login(user_name, password);
+    console.log(didLoginSuccessfully)
     if (didLoginSuccessfully) {
         console.log(`the user has logged in!`);
 
         const theUser = await users.getByUsername(user_name);
-        req.session.user = {
-            name,
+        req.session.users = {
+            user_name,
             id: theUser.id
         };
         req.session.save(() => {
