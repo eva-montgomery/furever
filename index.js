@@ -187,36 +187,7 @@ app.post('/pets/:id/delete')
 
 
 
-//// USER LOGIN /////
-//Login!
-// app.get('/login', (req, res) => {
-//     res.render('users/auth');
-// });
-// app.post('/login', parseForm, async (req, res) => {
-//     console.log(req.body);
-//     const { name, password } = req.body;
-//     const didLoginSuccessfully = await users.login(name, password);
-//     if (didLoginSuccessfully) {
-//         console.log(`yay! you logged in!`);
 
-//         // Assuming users have unique names:
-//         const theUser = await users.getByUsername(name);
-
-//         // Add some info to the user's session
-//         req.session.user = {
-//             name,
-//             id: theUser.id
-//         };
-//         req.session.save(() => {
-//             console.log('The session is now saved!!!');
-//             // This avoids a long-standing
-//             // bug in the session middleware
-//             res.redirect('/profile');
-//         });
-//     } else {
-//         console.log(`boooooooo. that is not correct`);
-//     }
-// });
 
 app.get('/signup', (req, res) => {
     res.render('users/signup', {
@@ -302,42 +273,7 @@ app.get('/logout', (req, res) => {
 });
 
 
-/////// SIGN UP ///////
-// app.get('/signup', (req, res) => {
-//     res.render('users/signup', {
-//         locals: {
-//             user_name: '',
-//             password: '',
-//             first_name: '',
-//             last_name: '',
-//             email: '',
-//             phone_number: '',
-//             location: '',
-//         }
-//     });
-// });
-    
 
-// app.post('/signup',  parseForm, async (req, res) => {
-//     // console.log(req.body);
-//     const { user_name, password } = req.body;
-//     users.create(user_name, password);
-//     res.redirect('/login');
-// });
-
-
-
-// app.get('/logout', (req, res) => {
-//     // Get rid of the user's session!
-//     // Then redirect them to the login page.
-//     req.session.destroy(() => {
-//         console.log('The session is now destroyed!!!');
-//         // This avoids a long-standing
-//         // bug in the session middleware
-//         res.redirect('/login');
-//     });
-    
-// })
 
 // "Profile" - list pets for this owner
 
