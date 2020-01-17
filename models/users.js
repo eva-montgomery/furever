@@ -7,10 +7,10 @@ function createHash(password) {
 }
 
 // Create
-function create(username, password) {
+async function create(email, password) {
     const hash = createHash(password);
     const newUser = {
-        username,
+        email,
         hash
     };
     console.log(newUser);   
@@ -27,11 +27,12 @@ async function getByUsername(username) {
         select * from users where user_name=$1
     `, [username]);
 
+
     return theUser;
 }
 
 async function signup(username, password) {
-    const theUser = await getByUsername(username);
+    const theUser = await get(username);
     return bcrypt.compareSync(password, theUser.hash);
 }
 
@@ -49,13 +50,30 @@ async function signup(username, password) {
 function getById(id) {
 
 }
-// Update
+// Update User
+async function updateUser(id, user_name, first_name, email, phone_number, location) {
+    const result = await db.result(`
+        update users set
+            user_name=$2,
+            first_name=$3,
+            email=$4,
+            phone_number=$5,
+            location=$6,
+        where id=$1;
+    `, [id, user_name, first_name, email, phone_number, location]);  
+    if (result.rowCount === 1) {
+        return id;
+    } else {
+        return null;
+    }
+}
 
 // Delete
 
 module.exports = {
     create,
     login,
-    getByUsername,
-    getById
+    getByEmail,
+    getById,
+    updateUser
 };
