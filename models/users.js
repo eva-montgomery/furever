@@ -17,18 +17,35 @@ async function create(email, password) {
 }
 
 // Retrieve
-async function login(email, password) {
-    const theUser = await getByEmail(email);
+async function login(username, password) {
+    const theUser = await getByUsername(username);
     return bcrypt.compareSync(password, theUser.hash);
 }
 
-async function getByEmail(email) {
+async function getByUsername(username) {
     const theUser = await db.one(`
-        select * from owners where name=$1
-    `, [email]);
+        select * from users where user_name=$1
+    `, [username]);
+
 
     return theUser;
 }
+
+async function signup(username, password) {
+    const theUser = await get(username);
+    return bcrypt.compareSync(password, theUser.hash);
+}
+
+// async function getByUsername(username) {
+//     const theUser = await db.one(`
+//         select * from users where password=$1
+//     `, [hush]);
+
+//     return theUser;
+// }
+
+
+
 
 function getById(id) {
 

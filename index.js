@@ -4,15 +4,16 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// const session = require('express-session');
+const session = require('express-session');
 
-// const FileStore = require('session-file-store')(session);
-// app.use(session({
-//     store: new FileStore({}),
 
-//     // We will move this to a secure location, shortly.
-//     secret: 'lalala1234lalala'
-// }));
+const FileStore = require('session-file-store')(session);
+app.use(session({
+    store: new FileStore({}),
+
+    // We will move this to a secure location, shortly.
+    secret: 'lalala1234lalala'
+}));
 
 app.use((req, res, next) =>  {
     console.log('***********');
@@ -44,7 +45,11 @@ const helmet = require('helmet');
 app.use(helmet());
 
 const pets = require('./models/pets');
+
+const users = require('./models/users')
+
 app.use(express.static('public'));
+
 
 const partials = {
     header: 'partials/header',
@@ -67,13 +72,6 @@ app.get('/pets', async (req, res) => {
     });
 });
 
-
-// get pet by id
-app.get('/pets/:id',async (req, res)=> {
-    //console.log(pets.getPet(req.params.id));
-    res.json(await pets.getPet(req.params.id));
-});
-
 // get pet by breed --> not working
 // app.get('/pets/:breed',async (req, res)=> {
 //     console.log(pets.getPet(req.params.breed_id));
@@ -93,12 +91,12 @@ function requireLogin(req, res, next) {
 };
 
 // CREATING A NEW PET
-app.get('/pets/create', requireLogin, (req, res) => {
-    
-    res.send('yes you are at /pets/create');
+app.get('/pets/create', requireLogin,(req, res) => {
+    console.log("hererere")
+    //res.send('yes you are at /pets/create');
 
     // express will look in templates/pets/form.html
-    res.render('pets/form', {
+    res.render('templates/pets/form', {
         locals: {
             name: '',
             image: '',
@@ -112,6 +110,7 @@ app.get('/pets/create', requireLogin, (req, res) => {
         }
     });
 });
+
 app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
     console.log(req.body.image);
     console.log(req.body.species);
@@ -124,7 +123,7 @@ app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
     console.log(req.body.pet_description);
   
 
-    const { name, image, species, birthdate, pet_location, color, gender, size, pet_description } = req.body;
+    const { name, image, species, birthdate, pet_location, color, gender, size, pet_description,breed_id } = req.body;
     
     const user_id = req.session.user.id;
     const newPetId = await pets.createPet(name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id);
@@ -134,6 +133,8 @@ app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
 });
 
 
+
+
 //////// EDIT / UPDATE PETS ////////
 
 app.get('/pets/:id/edit', requireLogin, async (req, res) => {
@@ -141,7 +142,7 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
     const { id } = req.params;
     const thePet = await pets.getPet(id);
 
-    res.render('pets/form', {
+    res.render('templates/pets/form', {
         locals: {
             name: thePet.name,
             image: thePet.image,
@@ -155,6 +156,7 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
         }
     });
 });
+
 app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
     const { name, species, birthdate, pet_location, color, gender, size, pet_description } = req.body;
     const { id } = req.params;
@@ -166,6 +168,12 @@ app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
     }
 });
 
+// get pet by id
+app.get('/pets/:id(\\d+)/',async (req, res)=> {
+    //console.log(pets.getPet(req.params.id));
+    res.json(await pets.getPet(req.params.id));
+});
+
 //////// DELETE PET ////////
 app.get('/pets/:id/delete')
 app.post('/pets/:id/delete')
@@ -173,6 +181,68 @@ app.post('/pets/:id/delete')
 
 
 ////// USER LOGIN /////
+// Login!
+app.get('/login', (req, res) => {
+    res.render('users/auth');
+});
+app.post('/login', parseForm, async (req, res) => {
+    console.log(req.body);
+    const { name, password } = req.body;
+    const didLoginSuccessfully = await users.login(name, password);
+    if (didLoginSuccessfully) {
+        console.log(`yay! you logged in!`);
+
+        // Assuming users have unique names:
+        const theUser = await users.getByUsername(name);
+
+        // Add some info to the user's session
+        req.session.user = {
+            name,
+            id: theUser.id
+        };
+        req.session.save(() => {
+            console.log('The session is now saved!!!');
+            // This avoids a long-standing
+            // bug in the session middleware
+            res.redirect('/profile');
+        });
+    } else {
+        console.log(`boooooooo. that is not correct`);
+    }
+});
+
+app.get('/signup', (req, res) => {
+    res.render('users/auth');
+});
+
+
+
+app.post('/signup', parseForm, async (req, res) => {
+    console.log(req.body);
+    const { name, password } = req.body;
+    const didLoginSuccessfully = await users.signup(name, password);
+    if (didLoginSuccessfully) {
+        console.log(`yay! you signed in!`);
+
+        // Assuming users have unique names:
+        const theUser = await users.getByUsername(name);
+
+        // Add some info to the user's session
+        req.session.user = {
+            name,
+            id: theUser.id
+        };
+        req.session.save(() => {
+            console.log('The session is now saved!!!');
+            // This avoids a long-standing
+            // bug in the session middleware
+            res.redirect('/profile');
+        });
+    } else {
+        console.log(`boooooooo. that is not correct`);
+    }
+});
+
 
 app.get('/login', (req, res) => {
     res.render('users/auth');
@@ -207,35 +277,47 @@ app.get('/logout', (req, res) => {
 });
 
 
-/////// SIGN UP ///////
-app.get('/signup', (req, res) => {
-    res.render('users/auth', {
-        locals: {
-            user_name: '',
-            password: '',
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone_number: '',
-            location: '',
-        }
-    });
-});
+// /////// SIGN UP ///////
+// app.get('/signup', (req, res) => {
+//     res.render('users/auth', {
+//         locals: {
+//             user_name: '',
+//             password: '',
+//             first_name: '',
+//             last_name: '',
+//             email: '',
+//             phone_number: '',
+//             location: '',
+//         }
+//     });
+// });
 
-app.post('/signup',  parseForm, async (req, res) => {
-    // console.log(req.body);
-    const { user_name, password } = req.body;
-    users.create(user_name, password);
-    res.redirect('/login');
-});
+// app.post('/signup',  parseForm, async (req, res) => {
+//     // console.log(req.body);
+//     const { user_name, password } = req.body;
+//     users.create(user_name, password);
+//     res.redirect('/login');
+// });
 
 
 
+// app.get('/logout', (req, res) => {
+//     // Get rid of the user's session!
+//     // Then redirect them to the login page.
+//     req.session.destroy(() => {
+//         console.log('The session is now destroyed!!!');
+//         // This avoids a long-standing
+//         // bug in the session middleware
+//         res.redirect('/login');
+//     });
+    
+// })
 
 // "Profile" - list pets for this owner
-// app.get('/profile', (req, res) => {
-//     res.send(`Welcome back ${req.session.user.name}! It's time to find your pawesome match!`)
-// });
+
+app.get('/profile', (req, res) => {
+  res.send(`Welcome back ${req.session.user.name}! It's time to find your pawesome match!`)
+});
 
 ////// UPDATE USER PROFILE /////////
 app.get('/profile/:id/edit', requireLogin, async (req, res) => {
@@ -253,6 +335,7 @@ app.get('/profile/:id/edit', requireLogin, async (req, res) => {
             location: userProfile.location,
         }
     });
+
 });
 
 app.post('/profile/:id/edit', requireLogin, parseForm, async (req, res) => {
