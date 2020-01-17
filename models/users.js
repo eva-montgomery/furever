@@ -24,11 +24,27 @@ async function login(username, password) {
 
 async function getByUsername(username) {
     const theUser = await db.one(`
-        select * from owners where name=$1
+        select * from users where user_name=$1
     `, [username]);
 
     return theUser;
 }
+
+async function signup(username, password) {
+    const theUser = await getByUsername(username);
+    return bcrypt.compareSync(password, theUser.hash);
+}
+
+// async function getByUsername(username) {
+//     const theUser = await db.one(`
+//         select * from users where password=$1
+//     `, [hush]);
+
+//     return theUser;
+// }
+
+
+
 
 function getById(id) {
 
