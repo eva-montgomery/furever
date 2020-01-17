@@ -64,12 +64,12 @@ app.get('/pets', async (req, res) => {
     const thePets = await pets.allPets();
     res.json(thePets);
     
-    res.render('pets', {
-        locals: {
-          thePets: allPets.join(''),
-        },
-        partials
-    });
+    // res.render('pets', {
+    //     locals: {
+    //       thePets: allPets.join(''),
+    //     },
+    //     partials
+    // });
 });
 
 // get pet by breed --> not working
@@ -107,7 +107,8 @@ app.get('/pets/create', requireLogin,(req, res) => {
             gender: '',
             size: '',
             pet_description: '',
-        }
+        },
+        partials,
     });
 });
 
