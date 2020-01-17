@@ -7,11 +7,16 @@ function createHash(password) {
 }
 
 // Create
-async function create(email, password) {
+async function createUsername(user_name,first_name, last_name,phone_number,user_location,email, password) {
     const hash = createHash(password);
     const newUser = {
         email,
-        hash
+        password,
+        user_name,
+        first_name, 
+        last_name,
+        phone_number,
+        user_location
     };
     console.log(newUser);   
 }
@@ -31,10 +36,10 @@ async function getByUsername(username) {
     return theUser;
 }
 
-async function signup(username, password) {
-    const theUser = await get(username);
-    return bcrypt.compareSync(password, theUser.hash);
-}
+// async function signup(username, password) {
+//     const theUser = await get(username);
+//     return bcrypt.compareSync(password, theUser.hash);
+// }
 
 // async function getByUsername(username) {
 //     const theUser = await db.one(`
@@ -71,9 +76,9 @@ async function updateUser(id, user_name, first_name, email, phone_number, locati
 // Delete
 
 module.exports = {
-    create,
+    createUsername,
     login,
-    getByEmail,
+    getByUsername,
     getById,
     updateUser
 };
