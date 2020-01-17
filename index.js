@@ -46,12 +46,25 @@ app.use(helmet());
 const pets = require('./models/pets');
 app.use(express.static('public'));
 
+const partials = {
+    header: 'partials/header',
+    nav: 'partials/nav',
+    footer: 'partials/footer',
+};
 
 ///////// SEE PETS - FUNCTIONS //////////
 // get all pets
 app.get('/pets', async (req, res) => {
+    const allPets = [];
     const thePets = await pets.allPets();
     res.json(thePets);
+    
+    res.render('pets', {
+        locals: {
+          thePets: allPets.join(''),
+        },
+        partials
+    });
 });
 
 
@@ -196,10 +209,20 @@ app.get('/logout', (req, res) => {
 
 /////// SIGN UP ///////
 app.get('/signup', (req, res) => {
-    res.render('users/auth');
+    res.render('users/auth', {
+        locals: {
+            user_name: '',
+            password: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone_number: '',
+            location: '',
+        }
+    });
 });
 
-app.post('/signup', parseForm, (req, res) => {
+app.post('/signup',  parseForm, async (req, res) => {
     // console.log(req.body);
     const { user_name, password } = req.body;
     users.create(user_name, password);

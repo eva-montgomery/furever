@@ -7,7 +7,7 @@ function createHash(password) {
 }
 
 // Create
-function create(email, password) {
+async function create(email, password) {
     const hash = createHash(password);
     const newUser = {
         email,
