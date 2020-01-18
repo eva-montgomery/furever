@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 const session = require('express-session');
-
+// const bootstrap = require('bootstrap');
 
 const FileStore = require('session-file-store')(session);
 app.use(session({
@@ -46,7 +46,8 @@ app.use(helmet());
 
 const pets = require('./models/pets');
 
-const users = require('./models/users')
+const users = require('./models/users');
+const breeds = require('./models/breeds');
 
 app.use(express.static('public'));
 
@@ -287,7 +288,7 @@ app.get('/logout', (req, res) => {
 // "Profile" - list pets for this owner
 
 app.get('/profile', (req, res) => {
-  res.send(`Welcome back ${req.session.users.user_name}! It's time to find your pawesome match!`)
+  res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
 });
 
 ////// UPDATE USER PROFILE /////////
@@ -320,6 +321,16 @@ app.post('/profile/:id/edit', requireLogin, parseForm, async (req, res) => {
     }
 });
 
+// Get breed information
+app.get('/breed/:id',async (req, res)=> {
+    const getBreed = await breeds.getBreedInfo(req.params.id);
+     res.render('breed', {
+        locals: {
+            ...getBreed
+        },
+        partials
+    });
+});
 
 
 app.get('*', (req, res) => {
