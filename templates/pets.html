@@ -2,26 +2,32 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="/stylesheets/styles.css">    
 
+    ${header}
+    ${nav}
+    <br>
+    <div class="container">
+        <h2>Hi my name is ${name}!</h2>
+        <p>I am looking for my furever family!</p>
+        <div class="card" style="width:400px">
+          <img class="card-img-top" src="/images/${image}" alt="Pet image" style="width:100%">
+          <div class="card-body">
+            <ul>
+                <li>I am a ${species}</li>
+                <li>My breed is ${breed_id}</li>
+                <li>I was born on ${birthdate}</li>
+                <li>My color is ${color}</li>
+                <li>My gender is ${gender}</li>
+                <li>I am located in ${pet_location}</li>
+              </ul>            <p class="card-text">${pet_description}</p>
+            <a href="/breed" class="btn btn-primary">Breed Information</a>
+          </div>
+        </div>
+    </div>
+    <br>
 
 
-${header}
-${nav}
-<div class="card">
-    <h1>Hi my name is ${name}! </h1>
-  <img src="/images/${image}" alt="${name}" style="width:100%">
-  <p class="title">I am looking for my furever family!</p>
-  <ul>
-    <li>I am a ${species}</li>
-    <li>My breed is ${breed_id}</li>
-    <li>I was born on ${birthdate}</li>
-    <li>My color is ${color}</li>
-    <li>My gender is ${gender}</li>
-    <li>I am located in ${pet_location}</li>
-  </ul>
-  <p>${pet_description}</p>
-  
 
-  <p><a href="/breed" class="button">Breed Information</a></p>
 
-</div>
+
+
 ${footer}
