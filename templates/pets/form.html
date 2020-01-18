@@ -1,6 +1,15 @@
 
 ${header}
 ${nav}
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Update information about the pet here!</h3>    
   <form method="POST">
     <label>
       Name:
@@ -8,7 +17,7 @@ ${nav}
     </label>
     <br>
     <label>
-      Image_upload:
+      Image:
       <input name="image" value="${image}">
     </label>
     <br>
@@ -23,12 +32,12 @@ ${nav}
     </label>
     <br>
     <label>
-      Pet_location:
+      Pet Location:
     <input name="pet_location" value="${pet_location}">
     </label>
     <br>
     <label>
-      color:
+      Color:
     <input name="color" value="${color}">
     </label>
     <br>
@@ -38,7 +47,11 @@ ${nav}
     </label>
     <br>
     <label>
-      Pet_description:
+      Size:
+      <input type="size" name="size" value="${size}"> 
+    </label>
+    <label>
+      Pet Description:
     <input name="pet_description" value="${pet_description}">
     </label>
     <br>
@@ -51,4 +64,12 @@ ${nav}
     </select>
     <input type="submit">
   </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> 
 ${footer}
+
