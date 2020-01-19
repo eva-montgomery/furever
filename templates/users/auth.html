@@ -1,66 +1,38 @@
 ${header}
 ${nav}
-   
-        <!-- <div class="form-group">
-            <label for="usr">Username:</label>
-            <input type="text" class="form-control" id="usr" name="user_name">
-          </div>
-          <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" name="password">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="submit" class="btn btn-primary">Reset</button>
-
-        </form> -->
-
-
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
-                    <img src="/images/login.jpg" >
-              </div>
-              <div class="col-md-8 col-lg-6">
-                <div class="login d-flex align-items-center py-5">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-9 col-lg-8 mx-auto">
-                        <h3 class="login-heading mb-4">Welcome back!</h3>
-                        <form method="POST">
-                          <div class="form-label-group">
-                            <input type="text" id="inputUser" class="form-control" name="user_name" placeholder="Username">
-                            <label for="inputUser">Username</label>
-                          </div>
-          
-                          <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password">
-                            <label for="inputPassword">Password</label>
-                          </div>
-          
-
-                          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
-                          <div class="text-center">
-                        </form>
-                      </div>
-                    </div>
+<form method="POST">
+  <div class="container-fluid">
+    <div class="row no-gutter">
+      <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+        <img src="/images/login.jpg">
+      </div>
+      <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9 col-lg-8 mx-auto">
+                <h3 class="login-heading mb-4">Welcome back!</h3>
+                <form>
+                  <div class="form-label-group">
+                    <label for="inputEmail">Username</label>
+                    <input type="text" id="inputUser" class="form-control" name="user_name" placeholder="Username">
                   </div>
-                </div>
+
+                  <div class="form-label-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" name="password"
+                      placeholder="Password">
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                    type="submit">Sign in</button>
+                  <div class="text-center">
+                </form>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-        <!-- <label>
-            Username:
-            <input type="text" name="user_name">            
-        </label>
-        <br>
-        <label>
-            Password:
-            <input type="password" name="password">
-        </label>
-        <br>
-        <input type="submit" value="Submit!">
-        <input type="reset">
-    </form> -->
-${footer}
+  ${footer}

@@ -25,6 +25,17 @@ async function getPet(id) {
     }
 }
 
+// get all pets
+async function getAllPetsByUserId(userId) {
+    try {
+        const thePets = await db.any(`select * from pets where user_id=$1`, [userId]);
+        return thePets;
+    } catch (err) {
+        console.log(err)
+        return [];
+    }
+}
+
 // get pet by breed --> not working
 // async function getPetByBreed(breed_id) {
 //     try {
@@ -38,6 +49,7 @@ async function getPet(id) {
 // CREATING A NEW PET
 
 // function to create a new pet
+
 async function createPet(name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id) {
     const result = await db.one(`
 insert into pets
@@ -189,6 +201,7 @@ async function delPet(id) {
 
 module.exports = {
     allPets,
+    getAllPetsByUserId,
     getPet,
     createPet,
     updatePet,
