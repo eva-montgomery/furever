@@ -61,8 +61,6 @@ const partials = {
 
 app.get('/', async(req, res) => {
     res.render('users/landingpage', {
-        locals: {
-        },
         partials
     });
 });
@@ -101,7 +99,7 @@ function requireLogin(req, res, next) {
 // get pet by id
 app.get('/pets/:id(\\d+)/', async (req, res) => {
     const thePet = await pets.getPet(req.params.id);
-    res.render('pets', {
+    res.render('users/pets', {
         locals: {
             ...thePet
         },
@@ -119,10 +117,9 @@ app.get('/pets/:id(\\d+)/', async (req, res) => {
 // CREATING A NEW PET
 
 app.get('/pets/create', requireLogin, async (req, res) => {
-    console.log("hererere")
 
     // express will look in templates/pets/form.html
-    res.render('pets/form', {
+    res.render('pets/create', {
         locals: {
             name: '',
             image: '',
@@ -154,7 +151,7 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
     const { id } = req.params;
     const thePet = await pets.getPet(id);
 
-    res.render('pets/form', {
+    res.render('pets/edit', {
         locals: {
             name: thePet.name,
             image: thePet.image,
@@ -173,7 +170,7 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
 app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
     const { name, species, birthdate, pet_location, color, gender, size, pet_description } = req.body;
     const { id } = req.params;
-    const result = await pets.updatePet(id, name, species, birthdate, pet_location, color, gender, size, pet_description);
+    const updatedId = await pets.updatePet(id, name, species, birthdate, pet_location, color, gender, size, pet_description);
     if (result) {
         res.redirect(`/pets/${id}`);
     } else {
@@ -191,8 +188,6 @@ app.post('/pets/:id/delete')
 app.get('/signup', (req, res) => {
     res.render('users/signup', { partials });
 });
-
-
 
 app.post('/signup', parseForm, async (req, res) => {
     const { user_name, first_name, last_name, phone_number, user_location, email, password } = req.body;
@@ -220,9 +215,6 @@ app.post('/signup', parseForm, async (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('users/auth', {
-        locals: {
-
-        },
         partials
     });
 });
@@ -253,7 +245,6 @@ app.post('/login', parseForm, async (req, res) => {
 ///// LOGOUT /////
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
-        console.log('The session has ended');
         res.redirect('/login');
     });
 });

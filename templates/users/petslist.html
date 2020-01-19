@@ -2,8 +2,8 @@ ${header}
 ${nav}
 
 ${thePets.map(pet => `
-  <div class="card">
-    <h1>Hi my name is ${pet.name}! </h1>
+<div class="card">
+  <h1>Hi my name is ${pet.name}! </h1>
   <img src="/images/${pet.image}" alt="${pet.name}" style="width:100%">
   <p class="title">I am looking for my furever family!</p>
   <ul>
@@ -17,6 +17,7 @@ ${thePets.map(pet => `
   <p>${pet.pet_description}</p>
 
   <p><a href="/" class="button">Breed Information</a></p>
+</div>
 `).join('')}
 
 ${footer}
