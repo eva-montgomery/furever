@@ -15,7 +15,7 @@ app.use(session({
     secret: 'lalala1234lalala'
 }));
 
-app.use((req, res, next) =>  {
+app.use((req, res, next) => {
     console.log('***********');
     console.log(req.session);
     console.log('***********');
@@ -51,18 +51,30 @@ const breeds = require('./models/breeds');
 
 app.use(express.static('public'));
 
-
 const partials = {
     header: 'partials/header',
     nav: 'partials/nav',
     footer: 'partials/footer',
 };
 
-/// LANDING PAGE //// 
-app.get('/', (req, res) => {
-    res.render('landingpage', {
-      
-        partials,
+// LANDING PAGE ////
+
+app.get('/', async(req, res) => {
+    res.render('users/landingpage', {
+        locals: {
+        },
+        partials
+    });
+});
+
+app.get('/petslist', async(req, res) => {
+    const thePets = await pets.allPets();
+
+    res.render('users/petslist', {
+        locals: {
+            thePets
+        },
+        partials
     });
 });
 
@@ -77,27 +89,25 @@ function requireLogin(req, res, next) {
     }
 };
 
-///////// SEE PETS - FUNCTIONS //////////
-// get all pets
-app.get('/pets', requireLogin, async (req, res) => {
-    const allPets = [];
-    const thePets = await pets.allPets();
-    res.json(thePets);
-  
-});
+// ///////// SEE PETS - FUNCTIONS //////////
+// // get all pets
+// app.get('/pets', async (req, res) => {
+//     const allPets = [];
+//     const thePets = await pets.allPets();
+//     res.json(thePets);
+//     // TODO: Rahel fix this to return all the pets from the database using the same concept as /profile
+// });
 
 // get pet by id
-app.get('/pets/:id(\\d+)/',async (req, res)=> {
-    //console.log(pets.getPet(req.params.id));
+app.get('/pets/:id(\\d+)/', async (req, res) => {
     const thePet = await pets.getPet(req.params.id);
-     res.render('pets', {
+    res.render('pets', {
         locals: {
             ...thePet
         },
         partials
     });
 });
-
 
 // get pet by breed --> not working
 // app.get('/pets/:breed',async (req, res)=> {
@@ -106,13 +116,10 @@ app.get('/pets/:id(\\d+)/',async (req, res)=> {
 // });
 
 
-
-
 // CREATING A NEW PET
 
 app.get('/pets/create', requireLogin, async (req, res) => {
     console.log("hererere")
-    //res.send('yes you are at /pets/create');
 
     // express will look in templates/pets/form.html
     res.render('pets/form', {
@@ -132,28 +139,13 @@ app.get('/pets/create', requireLogin, async (req, res) => {
 });
 
 app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
-    //console.log(req.body.image);
-    console.log(req.body.species);
-    console.log(req.body.species);
-    console.log(req.body.birthdate);
-    console.log(req.body.pet_location);
-    console.log(req.body.color);
-    console.log(req.body.gender);
-    console.log(req.body.size);
-    console.log(req.body.pet_description);
-  
+    const { name, image, species, birthdate, pet_location, color, gender, size, pet_description, breed_id } = req.body;
 
-    const { name, image, species, birthdate, pet_location, color, gender, size, pet_description,breed_id } = req.body;
-    
     const user_id = req.session.users.id;
     const newPetId = await pets.createPet(name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id);
-    console.log(`The new pet id is ${newPetId}`);
 
     res.redirect(`/pets/${newPetId}`);
 });
-
-
-
 
 //////// EDIT / UPDATE PETS ////////
 
@@ -189,47 +181,31 @@ app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
     }
 });
 
-
-
 //////// DELETE PET ////////
 app.get('/pets/:id/delete')
 app.post('/pets/:id/delete')
 
 
-
 //// SIGN UP FUNCTION /////
 
 app.get('/signup', (req, res) => {
-    res.render('users/signup', {
-        locals: {
-            user_name: '',
-            password: '',
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone_number: '',
-            location: '',
-        },
-        partials,
-    });
+    res.render('users/signup', { partials });
 });
 
 
 
 app.post('/signup', parseForm, async (req, res) => {
-    console.log(req.body);
-    const { user_name,first_name, last_name,phone_number,user_location,email, password } = req.body;
-    const didLoginSuccessfully = await users.createUsername(user_name,first_name, last_name,phone_number,user_location,email, password);
-    if (didLoginSuccessfully) {
-        console.log(`yay! you signed in!`);
+    const { user_name, first_name, last_name, phone_number, user_location, email, password } = req.body;
 
-        // Assuming users have unique names:
-        const theUser = await users.getByUsername(user_name);
+    const newUserId = await users.createUser(user_name, first_name, last_name, phone_number, user_location, email, password);
+
+    if (newUserId && newUserId > 0) {
+        console.log(`yay! you signed in!`);
 
         // Add some info to the user's session
         req.session.users = {
             user_name,
-            id: theUser.id
+            id: newUserId
         };
         req.session.save(() => {
             console.log('The session is now saved!!!');
@@ -242,7 +218,6 @@ app.post('/signup', parseForm, async (req, res) => {
     }
 });
 
-
 app.get('/login', (req, res) => {
     res.render('users/auth', {
         locals: {
@@ -251,6 +226,7 @@ app.get('/login', (req, res) => {
         partials
     });
 });
+
 app.post('/login', parseForm, async (req, res) => {
     const { user_name, password } = req.body;
     console.log("===== index.js line 262")
@@ -279,54 +255,56 @@ app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         console.log('The session has ended');
         res.redirect('/login');
-    }); 
+    });
 });
-
-
-
 
 // "Profile" - list pets for this owner
 
-app.get('/profile', (req, res) => {
-  res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
+app.get('/profile', requireLogin, async (req, res) => {
+    const id = req.session.users.id
+    const userPets = await pets.getAllPetsByUserId(id);
+
+    res.render('users/profile', {
+        locals: {
+            userPets,
+        },
+        partials
+    });
 });
 
 ////// UPDATE USER PROFILE /////////
-app.get('/profile/:id/edit', requireLogin, async (req, res) => {
+app.get('/profile/edit', requireLogin, async (req, res) => {
 
-    const { id } = req.params;
+    const id = req.session.users.id
     const userProfile = await users.getById(id);
 
-    res.render('users/auth', {
+    res.render('users/edit-profile', {
         locals: {
-            user_name: userProfile.user_name,
-            first_name: userProfile.first_name,
-            last_name: userProfile.last_name,
-            email: userProfile.email,
-            phone_number: userProfile.phone_number,
-            location: userProfile.location,
-        }
+            ...userProfile,
+        },
+        partials
     });
 
 });
 
-app.post('/profile/:id/edit', requireLogin, parseForm, async (req, res) => {
-    const { user_name, first_name, last_name, email, phone_number, location } = req.body;
-    const { id } = req.params;
-    const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, location);
+app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
+    const { user_name, first_name, last_name, email, phone_number, user_location } = req.body;
+    const id = req.session.users.id
+    const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, user_location);
     if (result) {
-        res.redirect(`/profile/${id}`);
+        res.redirect(`/profile`);
     } else {
-        res.redirect(`/profile/${id}/edit`)
+        res.redirect(`/profile/edit`)
     }
 });
 
 // Get breed information
-app.get('/breed/:id',async (req, res)=> {
-    const getBreed = await breeds.getBreedInfo(req.params.id);
-     res.render('breed', {
+app.get('/breed/:id', async (req, res) => {
+    const breed = await breeds.getBreedInfo(req.params.id);
+
+    res.render('breed', {
         locals: {
-            ...getBreed
+            ...breed
         },
         partials
     });
@@ -335,7 +313,7 @@ app.get('/breed/:id',async (req, res)=> {
 
 app.get('*', (req, res) => {
     console.log("Redirecting, because no page here.");
-    res.redirect('/home');
+    res.redirect('/');
 })
 
 server.listen(PORT, () => {
