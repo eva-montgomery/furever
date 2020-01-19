@@ -4,8 +4,8 @@ ${nav}
 <h1>Here are my pets</h1>
 
 ${userPets.map(pet => `
-  <div class="card">
-    <h1>Hi my name is ${pet.name}! </h1>
+<div class="card">
+  <h1>Hi my name is ${pet.name}! </h1>
   <img src="/images/${pet.image}" alt="${pet.name}" style="width:100%">
   <p class="title">I am looking for my furever family!</p>
   <ul>
@@ -19,8 +19,8 @@ ${userPets.map(pet => `
   <p>${pet.pet_description}</p>
 
   <p><a href="/breed/${pet.breed_id}" class="button">Breed Information</a></p>
-`).join('')}
-
+  <p><a href="/pets/${pet.id}/edit" class="button">Edit</a></p>
 </div>
+`).join('')}
 
 ${footer}

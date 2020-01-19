@@ -1,0 +1,73 @@
+${header}
+${nav}
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Offer your pet for an adoption!</h3>
+              <form method="POST">
+                <label>
+                  Name:
+                  <input name="name" value="${name}">
+                </label>
+                <br>
+                <label>
+                  Image:
+                  <input name="image" value="${image}">
+                </label>
+                <br>
+                <label>
+                  Species:
+                  <input name="species" value="${species}">
+                </label>
+                <br>
+                <label>
+                  Birthdate:
+                  <input type="date" name="birthdate" value="${birthdate}" placeholder="1999-12-31">
+                </label>
+                <br>
+                <label>
+                  Pet Location:
+                  <input name="pet_location" value="${pet_location}">
+                </label>
+                <br>
+                <label>
+                  Color:
+                  <input name="color" value="${color}">
+                </label>
+                <br>
+                <label>
+                  Gender:
+                  <input name="gender" value="${gender}">
+                </label>
+                <br>
+                <label>
+                  Size:
+                  <input type="size" name="size" value="${size}">
+                </label>
+                <label>
+                  Pet Description:
+                  <input name="pet_description" value="${pet_description}">
+                </label>
+                <br>
+                <select>
+                  <option value="1">Pomeranian</option>
+                  <option value="2">Dachshund</option>
+                  <option value="3">Golden Retriever</option>
+                  <option value="4">Corgi</option>
+                  <option value="5">American Bulldog</option>
+                </select>
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+${footer}
