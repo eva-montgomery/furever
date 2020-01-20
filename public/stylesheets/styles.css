@@ -4,6 +4,14 @@
 
 /* LANDING PAGE */
 
+.text-container {
+  font-family: 'Kalam', cursive;
+  text-align: center;
+  font-weight: 900;
+  font-variant: small-caps;
+}
+
+
 .landingPage-container {
 text-align: center;
 background-image: url(/images/paw-print-941498_1920.jpg);
@@ -40,8 +48,8 @@ button {
 }
 
 a {
-  text-decoration: none;
-  font-size: 22px;
+  /* text-decoration: none;
+  font-size: 22px; */
   color: black;
 }
 
@@ -189,7 +197,10 @@ color: #777;
 
 /* PETS */
 .container {
-justify-content: center;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+
 }
 
 /* Sticky Footer Classes */
