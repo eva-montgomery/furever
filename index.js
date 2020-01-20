@@ -90,14 +90,14 @@ app.get('/pets', requireLogin, async (req, res) => {
     // });
   
 });
-// ///////// SEE PETS - FUNCTIONS //////////
-// // get all pets
-// app.get('/pets', async (req, res) => {
-//     const allPets = [];
-//     const thePets = await pets.allPets();
-//     res.json(thePets);
-//     // TODO: Rahel fix this to return all the pets from the database using the same concept as /profile
-// });
+///////// SEE PETS - FUNCTIONS //////////
+// get all pets
+app.get('/pets', async (req, res) => {
+    const allPets = [];
+    const thePets = await pets.allPets();
+    res.json(thePets);
+    // TODO: Rahel fix this to return all the pets from the database using the same concept as /profile
+});
 
 // get pet by id
 app.get('/pets/:id(\\d+)/', async (req, res) => {
@@ -286,10 +286,12 @@ app.get('/home', (req, res) => {
 app.get('/profile', requireLogin, async (req, res) => {
     const id = req.session.users.id
     const userPets = await pets.getAllPetsByUserId(id);
+    const theUser = await users.getUser(req.params.id);
 
     res.render('users/profile', {
         locals: {
-            userPets,
+            ...theUser,
+            ...userPets,
         },
         partials
     });
@@ -327,9 +329,9 @@ app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
 app.get('/breed/:id', async (req, res) => {
     const breed = await breeds.getBreedInfo(req.params.id);
 
-    res.render('breed', {
+    res.render('/pets/breed', {
         locals: {
-            ...breed
+            breed
         },
         partials
     });

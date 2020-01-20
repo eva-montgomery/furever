@@ -88,7 +88,7 @@ module.exports = {
     createUser,
     login,
     getByUsername,
-    // getById,
+    getById,
     updateUser,
     getUser
 };
