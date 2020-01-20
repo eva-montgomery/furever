@@ -16,7 +16,7 @@
 text-align: center;
 background-image: url(/images/paw-print-941498_1920.jpg);
 background-size: cover;
-background-repeat: no-repeat;
+/* background-repeat: no-repeat; */
 max-width: 100%;
 height: auto;
 };
@@ -69,7 +69,7 @@ border-radius: 25px;
 body {
 background-image: url(/images/paw-print-941498_1920.jpg);
 background-size: cover;
-background-repeat: no-repeat;
+background-repeat: repeat; 
 max-width: 100%;
 height: auto;
 /* background: #007bff;
