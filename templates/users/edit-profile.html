@@ -1,0 +1,67 @@
+${header}
+${nav}
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+      <!-- <img src="/images/signin.jpg" alt="cute pup"> -->
+    </div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+
+              <h3 class="login-heading mb-4">Edit your profile</h3>
+              <form method="POST">
+
+                <div class="form-label-group">
+                  <label for="inputEmail">Username</label>
+                  <input type="text" id="inputUser" class="form-control" name="user_name" placeholder="Username"
+                    value="${user_name}">
+
+                </div>
+                <div class="form-label-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" class="form-control" name="first_name" placeholder="First Name"
+                    value="${first_name}">
+                </div>
+                <div class="form-label-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" class="form-control" name="last_name" placeholder="Last Name"
+                    value="${last_name}">
+                </div>
+                <div class="form-label-group">
+                  <label for="email">E-Mail</label>
+                  <input type="text" id="email" class="form-control" name="email" placeholder="E-mail" value="${email}">
+                </div>
+                <div class="form-label-group">
+                  <label for="email">Phone number</label>
+                  <input type="text" id="phone" class="form-control" name="phone_number" placeholder="Phone number"
+                    value="${phone_number}">
+                </div>
+                <div class="form-label-group">
+                  <label for="location">City</label>
+                  <input type="text" id="location" class="form-control" name="user_location" placeholder="City"
+                    value="${user_location}">
+
+                </div>
+                <br>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                  type="submit">Save</button>
+                <div class="text-center"></div>
+                <button class="btn btn-lg btn-primary btn-block btn-reset text-uppercase font-weight-bold mb-2"
+                  type="reset">Reset</button>
+                <div class="text-center"> </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+${footer}

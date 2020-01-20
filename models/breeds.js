@@ -13,6 +13,5 @@ async function getBreedInfo(id) {
 }
 
 module.exports = {
-  
     getBreedInfo
 };
