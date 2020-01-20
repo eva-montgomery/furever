@@ -45,7 +45,6 @@ const helmet = require('helmet');
 app.use(helmet());
 
 const pets = require('./models/pets');
-
 const users = require('./models/users');
 const breeds = require('./models/breeds');
 
@@ -57,23 +56,13 @@ const partials = {
     footer: 'partials/footer',
 };
 
-// LANDING PAGE ////
-
-app.get('/', async(req, res) => {
-    res.render('users/landingpage', {
-        partials
-    });
-});
-
-app.get('/petslist', async(req, res) => {
-    const thePets = await pets.allPets();
-
-    res.render('users/petslist', {
-        locals: {
-            thePets
-        },
-        partials
-    });
+/// LANDING PAGE //// 
+app.get('/', (req, res) => {
+    res.redirect('/login');
+    // res.render('landingpage', {
+      
+    //     partials,
+    // });
 });
 
 // login required function
@@ -87,6 +76,20 @@ function requireLogin(req, res, next) {
     }
 };
 
+///////// SEE PETS - FUNCTIONS //////////
+// get all pets
+app.get('/pets', requireLogin, async (req, res) => {
+    const allPets = [];
+    const thePets = await pets.allPets();
+    res.json(thePets);
+    // res.render('pets', {
+    //     locals: {
+    //         ...thePets,
+    //     },
+    //     partials
+    // });
+  
+});
 // ///////// SEE PETS - FUNCTIONS //////////
 // // get all pets
 // app.get('/pets', async (req, res) => {
@@ -206,7 +209,7 @@ app.post('/signup', parseForm, async (req, res) => {
             console.log('The session is now saved!!!');
             // This avoids a long-standing
             // bug in the session middleware
-            res.redirect('/profile');
+            res.redirect('/home');
         });
     } else {
         console.log(`boooooooo. that is not correct`);
@@ -235,7 +238,7 @@ app.post('/login', parseForm, async (req, res) => {
         };
         req.session.save(() => {
             console.log('The session is now saved!!!');
-            res.redirect('/profile');
+            res.redirect('/home');
         });
     } else {
         console.log(`Incorrect`);
@@ -249,6 +252,35 @@ app.get('/logout', (req, res) => {
     });
 });
 
+////// HOME ////////
+app.get('/home', (req, res) => {
+    res.render('home', {
+        locals: {
+            user_name: '',
+            password: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone_number: '',
+            location: '',
+        },
+        partials,
+    });
+});
+
+
+// "Profile" - list pets for this owner
+
+// WE NEED THE USER INFORMATION IN THE PROFILE AS WELL
+// app.get('/profile', requireLogin, async (req, res) => {
+//     const theUser = await users.getUser(req.params.id);
+//     res.render('users/profile', {
+//        locals: {
+//            ...theUser,
+//        },
+//        partials
+//    });
+//   res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
 // "Profile" - list pets for this owner
 
 app.get('/profile', requireLogin, async (req, res) => {
@@ -266,8 +298,10 @@ app.get('/profile', requireLogin, async (req, res) => {
 ////// UPDATE USER PROFILE /////////
 app.get('/profile/edit', requireLogin, async (req, res) => {
 
-    const id = req.session.users.id
-    const userProfile = await users.getById(id);
+    const { id } = req.params;
+    const userProfile = await users.getUser(id);
+    // const id = req.session.users.id
+    // const userProfile = await users.getById(id);
 
     res.render('users/edit-profile', {
         locals: {

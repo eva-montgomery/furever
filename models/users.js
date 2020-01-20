@@ -69,12 +69,26 @@ async function updateUser(id, user_name, first_name, email, phone_number, user_l
     }
 }
 
+// Profile
+
+async function getUser(id) {
+    try {
+        const user = await db.one(`select * from users where id=$1`, [id]);
+        return user;
+    } catch (err) {
+        return null;
+    };
+ }
+
+
+
 // Delete
 
 module.exports = {
     createUser,
     login,
     getByUsername,
-    getById,
-    updateUser
+    // getById,
+    updateUser,
+    getUser
 };
