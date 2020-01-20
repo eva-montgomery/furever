@@ -2,33 +2,52 @@ ${header}
 ${nav}
   
 <div class="landingPage-container"> 
-
+<br>
     <h1>FurEver - It's a pawesome match!</h1>
 
  <div>Welcome to your furry matchmaking site! </div>
+ <br>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ab nulla nobis animi non explicabo rerum dolores distinctio nisi, excepturi a veniam impedit nam ipsa error voluptas minus optio nostrum.</p>
 
 
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ab nulla nobis animi non explicabo rerum dolores distinctio nisi, excepturi a veniam impedit nam ipsa error voluptas minus optio nostrum.</p>
 
 
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ab nulla nobis animi non explicabo rerum dolores distinctio nisi, excepturi a veniam impedit nam ipsa error voluptas minus optio nostrum.</p>
-
-
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ab nulla nobis animi non explicabo rerum dolores distinctio nisi, excepturi a veniam impedit nam ipsa error voluptas minus optio nostrum.</p>
-
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ab nulla nobis animi non explicabo rerum dolores distinctio nisi, excepturi a veniam impedit nam ipsa error voluptas minus optio nostrum.</p>
-
-
-
-<div class="login-signup-btn">
-  <a href="/login" class="button">Login</a>
-  <a href="/signup" class="button">Sign Up</a>
-</div>
   
-</div> 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Sign In</h5>
+          <form method="POST">
+          <form class="form-signin">
+            <div class="form-label-group">
+              <input type="text" id="inputUser" class="form-control" name="user_name" >
+              <label for="inputUser">Username</label>
+            </div>
+
+            <div class="form-label-group">
+              <input type="password" id="inputPassword" class="form-control" name="password">
+              <label for="inputPassword">Password</label>
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+              <label class="custom-control-label" for="customCheck1">Remember password</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>           
+            <div class="text-center">   
+              <br>
+              <div class="form-group">
+                <p class="text-center">Don't have an account? <a href="/signup" id="signup">Sign up here</a></p>
+             </div>    
+            </form>
+          </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
   ${footer}
   

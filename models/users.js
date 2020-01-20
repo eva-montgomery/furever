@@ -55,9 +55,7 @@ async function getByUsername(username) {
 
 
 
-function getById(id) {
 
-}
 // Update User
 async function updateUser(id, user_name, first_name, email, phone_number, location) {
     const result = await db.result(`
@@ -76,12 +74,26 @@ async function updateUser(id, user_name, first_name, email, phone_number, locati
     }
 }
 
+// Profile
+
+async function getUser(id) {
+    try {
+        const user = await db.one(`select * from users where id=$1`, [id]);
+        return user;
+    } catch (err) {
+        return null;
+    };
+ }
+
+
+
 // Delete
 
 module.exports = {
     createUsername,
     login,
     getByUsername,
-    getById,
-    updateUser
+    // getById,
+    updateUser,
+    getUser
 };

@@ -45,7 +45,6 @@ const helmet = require('helmet');
 app.use(helmet());
 
 const pets = require('./models/pets');
-
 const users = require('./models/users');
 const breeds = require('./models/breeds');
 
@@ -60,10 +59,11 @@ const partials = {
 
 /// LANDING PAGE //// 
 app.get('/', (req, res) => {
-    res.render('landingpage', {
+    res.redirect('/login');
+    // res.render('landingpage', {
       
-        partials,
-    });
+    //     partials,
+    // });
 });
 
 // login required function
@@ -83,6 +83,12 @@ app.get('/pets', requireLogin, async (req, res) => {
     const allPets = [];
     const thePets = await pets.allPets();
     res.json(thePets);
+    // res.render('pets', {
+    //     locals: {
+    //         ...thePets,
+    //     },
+    //     partials
+    // });
   
 });
 
@@ -235,7 +241,7 @@ app.post('/signup', parseForm, async (req, res) => {
             console.log('The session is now saved!!!');
             // This avoids a long-standing
             // bug in the session middleware
-            res.redirect('/profile');
+            res.redirect('/home');
         });
     } else {
         console.log(`boooooooo. that is not correct`);
@@ -267,7 +273,7 @@ app.post('/login', parseForm, async (req, res) => {
         };
         req.session.save(() => {
             console.log('The session is now saved!!!');
-            res.redirect('/profile');
+            res.redirect('/home');
         });
     } else {
         console.log(`Incorrect`);
@@ -282,20 +288,41 @@ app.get('/logout', (req, res) => {
     }); 
 });
 
-
+////// HOME ////////
+app.get('/home', (req, res) => {
+    res.render('home', {
+        locals: {
+            user_name: '',
+            password: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone_number: '',
+            location: '',
+        },
+        partials,
+    });
+});
 
 
 // "Profile" - list pets for this owner
 
-app.get('/profile', (req, res) => {
-  res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
+app.get('/profile', requireLogin, async (req, res) => {
+    const theUser = await users.getUser(req.params.id);
+    res.render('users/profile', {
+       locals: {
+           ...theUser,
+       },
+       partials
+   });
+//   res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
 });
 
 ////// UPDATE USER PROFILE /////////
 app.get('/profile/:id/edit', requireLogin, async (req, res) => {
 
     const { id } = req.params;
-    const userProfile = await users.getById(id);
+    const userProfile = await users.getUser(id);
 
     res.render('users/auth', {
         locals: {
