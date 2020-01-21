@@ -8,13 +8,13 @@ ${nav}
       <div class="card card-signin my-5">
         <div class="card-body">
           <h3 class="login-heading mb-4">Unable to take care of your furry friend anymore? List your pet here to find it a new family!</h3>    
-          <form method="POST" class="form-signin">
+          <form method="POST" class="form-signin" enctype="multipart/form-data">
             <div class="form-label-group">
               <input type="text" value="${name}" id="inputName" class="form-control" name="name" >
               <label for="Name">Name</label>
             </div>
             <div class="form-label-group">
-              <input type="text" value="${image}" id="inputImage" class="form-control" name="image" >
+              <input type="file" value="${image}" id="inputImage" class="form-control" name="image" >
               <label for="Image">Image</label>
             </div>
 
@@ -22,10 +22,24 @@ ${nav}
               <input type="text" value="${species}" id="inputBirthdate" class="form-control" name="species" >
               <label for="Species">Species</label>
             </div>
-            <div class="form-label-group">
+            <!-- <div class="form-label-group">
               <input type="text" value="${breed_id}" id="inputBreed" class="form-control" name="breed_id" >
               <label for="Breed">Breed</label>
+            </div> -->
+
+
+            <div class="form-label-group">
+              <select class="form-control" value="${breed_id}" name="breed_id">
+                <option value="1">Pomeranian</option>
+                <option value="2">Dachshund</option>
+                <option value="3">Golden Retriever</option>
+                <option value="4">Corgi</option>
+                <option value="5">American Bulldog</option>
+              </select>
             </div>
+
+            
+
             <div class="form-label-group">
               <input type="date" value="${birthdate}" id="inputBirthdate" class="form-control" name="birthdate" >
               <label for="Birthdate">Birthdate</label>
@@ -49,10 +63,15 @@ ${nav}
               <input type="text" value="${size}" id="inputSize" class="form-control" name="size" >
               <label for="Size">Size</label>
             </div>
+
+
             <div class="form-label-group">
               <input type="text" value="${pet_description}" rows="3" id="inputDescription" class="form-control" name="pet_description" >
               <label for="Description">Description</label>
             </div>
+
+
+
             <button class="btn btn-lg btn-primary btn-block btn-reset text-uppercase font-weight-bold mb-2" input type="submit">Save</button>
 
 

@@ -7,7 +7,7 @@ ${nav}
       <div class="card card-signin my-5">
         <div class="card-body">
               <h3 class="login-heading mb-4">Update information about the pet here!</h3>    
-              <form method="POST" class="form-signin">
+              <form method="POST" class="form-signin" enctype="multipart/form-data">
 
     <div class="form-label-group">
       <input type="text" value="${name}" id="inputName" class="form-control" name="name" >
@@ -15,9 +15,9 @@ ${nav}
     </div>
 
     <div class="form-label-group">
-        <input type="text" value="${image}" id="inputImage" class="form-control" name="image" >
-        <label for="Image">Image</label>
-      </div>
+      <input type="file" value="${image}" id="inputImage" class="form-control" name="image" >
+      <label for="Image">Image</label>
+    </div>
 
         <div class="form-label-group">
           <input type="text" value="${species}" id="inputBirthdate" class="form-control" name="species" >

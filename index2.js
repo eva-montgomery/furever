@@ -6,12 +6,14 @@ const PORT = 3000;
 
 const session = require('express-session');
 // const bootstrap = require('bootstrap');
+
 const FileStore = require('session-file-store')(session);
 app.use(session({
     store: new FileStore({}),
     // We will move this to a secure location, shortly.
     secret: 'lalala1234lalala'
 }));
+
 app.use((req, res, next) => {
     console.log('***********');
     console.log(req.session);
@@ -22,21 +24,27 @@ const es6Renderer = require('express-es6-template-engine');
 app.engine('html', es6Renderer);
 app.set('views', 'templates');
 app.set('view engine', 'html');
+
 const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({
     extended: true
 });
+
 const { dateToFormattedString } = require('./utils');
 const server = http.createServer(app);
 const morgan = require('morgan');
 const logger = morgan('tiny');
+
 app.use(logger);
 const helmet = require('helmet');
 app.use(helmet());
+
 const pets = require('./models/pets');
 const users = require('./models/users');
 const breeds = require('./models/breeds');
+
 app.use(express.static('public'));
+
 const partials = {
     header: 'partials/header',
     nav: 'partials/nav',
@@ -118,6 +126,7 @@ app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
 app.get('/pets/:id/edit', requireLogin, async (req, res) => {
     const { id } = req.params;
     const thePet = await pets.getPet(id);
+
     res.render('pets/edit', {
         locals: {
             name: thePet.name,
@@ -146,6 +155,7 @@ app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
 //////// DELETE PET ////////
 app.get('/pets/:id/delete')
 app.post('/pets/:id/delete')
+
 //// SIGN UP FUNCTION /////
 app.get('/signup', (req, res) => {
     res.render('users/signup', { partials });

@@ -31,10 +31,12 @@ height: auto;
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
+  max-width: 400px;
+  border-radius: 50px;
   text-align: center;
   font-family: arial;
+  margin-left: 400px;
+
 }
 
 .title {
@@ -75,11 +77,13 @@ border-radius: 25px;
 }
 
 body {
+display: flex;
+flex-direction: column;
 background-image: url(/images/paw-print-941498_1920.jpg);
 background-size: cover;
 background-repeat: repeat; 
 max-width: 100%;
-height: auto;
+
 /* background: #007bff;
 background: linear-gradient(to right, #0062E6, #33AEFF); */
 }
@@ -175,6 +179,16 @@ font-size: 12px;
 color: #777;
 }
 
+/* Breed input dropdown */
+
+.form-group {
+ 
+  border-radius:36px;
+  display:inline-block;
+  overflow:hidden;
+  background:#cccccc;
+  border:1px solid #cccccc;
+  }
 
 
 /* Fallback for Edge
@@ -205,12 +219,16 @@ color: #777;
 
 /* PETS */
 .container {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1 0 auto;
+  flex-direction: column;
+
   
 
 }
+
 
 /* Sticky Footer Classes */
 
@@ -236,17 +254,3 @@ background: linear-gradient(to right, #0062E6, #33AEFF);
 
 
 /* LOGIN */
-
-.petslist-card { 
- 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  margin: 20px auto;
-  /* text-align: center; */
-  font-family: arial;
-  background-color: white;
-}
-.petslist-title {
-  color: black;
-  font-size: 18px;
-}

@@ -1,6 +1,9 @@
 const http = require('http');
 const express = require('express');
 
+const multer = require('multer');
+const upload = multer({ dest: 'public/images'});
+
 const app = express();
 const PORT = 3000;
 
@@ -113,9 +116,12 @@ app.get('/petslist', requireLogin, async (req, res) => {
 // get pet by id
 app.get('/pets/:id(\\d+)/', async (req, res) => {
     const thePet = await pets.getPet(req.params.id);
+    const theBreed = await breeds.getBreedInfo(thePet.breed_id);
     res.render('users/pets', {
         locals: {
-            ...thePet
+            ...thePet,
+            breed: theBreed.breed_species 
+
         },
         partials
     });
@@ -152,11 +158,13 @@ app.get('/pets/create', requireLogin, async (req, res) => {
     });
 });
 
-app.post('/pets/create', requireLogin, parseForm, async (req, res) => {
-    const { name, image, species, birthdate, pet_location, color, gender, size, pet_description, breed_id } = req.body;
+app.post('/pets/create', requireLogin, upload.single('image'), parseForm, async (req, res) => {
+    const { name, species, birthdate, pet_location, color, gender, size, pet_description, breed_id } = req.body;
 
     const user_id = req.session.users.id;
     console.log(species);
+    console.log(req.file);
+    const image = req.file.filename;
     const newPetId = await pets.createPet(name, image, species, birthdate, pet_location, color, gender, size, pet_description, user_id, breed_id);
 
     res.redirect(`/pets/${newPetId}`);
@@ -186,10 +194,14 @@ app.get('/pets/:id/edit', requireLogin, async (req, res) => {
     });
 });
 
-app.post('/pets/:id/edit', requireLogin, parseForm, async (req, res) => {
+app.post('/pets/:id/edit', requireLogin, upload.single('image'), parseForm, async (req, res) => {
     const { name, species, birthdate, pet_location, color, gender, size, pet_description } = req.body;
     const { id } = req.params;
+    const image = req.file.filename;
     const updatedId = await pets.updatePet(id, name, species, birthdate, pet_location, color, gender, size, pet_description);
+    const UpdateImage = await pets.updatePetImage(id, image);
+
+
     if (updatedId) {
         res.redirect(`/pets/${id}`);
     } else {
