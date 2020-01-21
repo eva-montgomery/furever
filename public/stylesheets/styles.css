@@ -229,6 +229,9 @@ color: #777;
 
 }
 
+.container.no-flex {
+  display: block;
+}
 
 /* Sticky Footer Classes */
 
