@@ -29,6 +29,7 @@ async function getPet(id) {
 async function getAllPetsByUserId(userId) {
     try {
         const thePets = await db.any(`select * from pets where user_id=$1`, [userId]);
+        console.log(thePets)
         return thePets;
     } catch (err) {
         console.log(err)
