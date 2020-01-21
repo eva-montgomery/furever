@@ -105,9 +105,17 @@ function requireLogin(req, res, next) {
 // see all Pets
 app.get('/petslist', requireLogin, async (req, res) => {
     const thePets = await pets.allPets();
+    const petBreeds = [];
+    for (let thePet of thePets) {
+        const theBreed = await breeds.getBreedInfo(thePet.breed_id);
+        thePet.breed = theBreed.breed_species;
+        petBreeds.push(thePet);
+    }
+
     res.render('users/petslist', {
         locals: {
-            thePets
+            thePets: petBreeds,
+            
         },
         partials
     });
@@ -126,6 +134,8 @@ app.get('/pets/:id(\\d+)/', async (req, res) => {
         partials
     });
 });
+
+
 
 
 
@@ -300,9 +310,15 @@ app.get('/home', (req, res) => {
 app.get('/mypets', requireLogin, async (req, res) => {
     const id = req.session.users.id
     const userPets = await pets.getAllPetsByUserId(id);
+    const petBreeds = [];
+    for (let thePet of userPets) {
+        const theBreed = await breeds.getBreedInfo(thePet.breed_id);
+        thePet.breed = theBreed.breed_species;
+        petBreeds.push(thePet);
+    }
     res.render('users/mypets', {
         locals: {
-            userPets,
+            userPets: petBreeds
         },
         partials
     });
@@ -347,32 +363,58 @@ app.get('/profile', requireLogin, async (req, res) => {
 });
 
 ////// UPDATE USER PROFILE /////////
+
 app.get('/profile/edit', requireLogin, async (req, res) => {
-
-    const { id } = req.params;
-    const userProfile = await users.getUser(id);
-    // const id = req.session.users.id
-    // const userProfile = await users.getById(id);
-
+    const id = req.session.users.id
+    const userProfile = await users.getById(id);
     res.render('users/edit-profile', {
         locals: {
             ...userProfile,
         },
         partials
     });
-
 });
-
 app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
     const { user_name, first_name, last_name, email, phone_number, user_location } = req.body;
     const id = req.session.users.id
     const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, user_location);
+    console.log(result)
+    console.log("received profile edit")
     if (result) {
-        res.redirect(`/profile`);
+        res.redirect(`/profile/edit`);
     } else {
         res.redirect(`/profile/edit`)
     }
 });
+
+
+// OLD
+// app.get('/profile/edit', requireLogin, async (req, res) => {
+
+//     const { id } = req.params;
+//     const userProfile = await users.getUser(id);
+//     // const id = req.session.users.id
+//     // const userProfile = await users.getById(id);
+
+//     res.render('users/edit-profile', {
+//         locals: {
+//             ...userProfile,
+//         },
+//         partials
+//     });
+
+// });
+
+// app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
+//     const { user_name, first_name, last_name, email, phone_number, user_location } = req.body;
+//     const id = req.session.users.id
+//     const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, user_location);
+//     if (result) {
+//         res.redirect(`/profile`);
+//     } else {
+//         res.redirect(`/profile/edit`)
+//     }
+// });
 
 // Get breed information
 app.get('/breed/:id', async (req, res) => {

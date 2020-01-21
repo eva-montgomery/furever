@@ -1,23 +1,37 @@
 ${header}
 ${nav}
+<br>
+<div class="text-container">
+
 <h1>Here are my pets</h1>
+</div>
+
 ${userPets.map(pet => `
-<div class="card">
-  <h1>Hi my name is ${pet.name}! </h1>
+  <div class="container">
+    <div class="card" style="width:400px">
+
+
+
+  <h2>Hi my name is ${pet.name}! </h2>
   <img src="/images/${pet.image}" alt="${pet.name}" style="width:100%">
-  <p class="title">I am looking for my furever family!</p>
+  <div class="card-body">
+  <p>I am looking for my furever family!</p>
   <ul>
     <li>I am a ${pet.species}</li>
-    <li>My breed is ${pet.breed_id}</li>
+    <li>My breed is ${pet.breed}</li>
     <li>I was born on ${pet.birthdate}</li>
     <li>My color is ${pet.color}</li>
     <li>My gender is ${pet.gender}</li>
     <li>I am located in ${pet.pet_location}</li>
   </ul>
   <p>${pet.pet_description}</p>
-  <p><a href="/breed/${pet.breed_id}" class="button">Breed Information</a></p>
-  <p><a href="/pets/${pet.id}/edit" class="button">Edit</a></p>
+  <a href="/breed/${pet.breed_id}" class="btn btn-primary">Breed Information</a>
+  <a href="/pets/${pet.id}/edit" class="btn btn-primary">Update</a>
+
 </div>
+</div>
+</div>
+<br>
 `).join('')}
 ${footer}
 new messages

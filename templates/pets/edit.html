@@ -1,7 +1,7 @@
 ${header}
 ${nav}
 
-<div class="container">
+<div class="container no-flex">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
@@ -23,10 +23,17 @@ ${nav}
           <input type="text" value="${species}" id="inputBirthdate" class="form-control" name="species" >
           <label for="Species">Species</label>
         </div>
-<div class="form-label-group">
-  <input type="text" value="${breed_id}" id="inputBreed" class="form-control" name="breed_id" >
-  <label for="Breed">Breed</label> 
-</div>
+
+        <div class="form-label-group">
+          <select class="form-control" value="${breed_id}" name="breed_id">
+            <option value="1">Pomeranian</option>
+            <option value="2">Dachshund</option>
+            <option value="3">Golden Retriever</option>
+            <option value="4">Corgi</option>
+            <option value="5">American Bulldog</option>
+          </select>
+        </div>
+
 
 <div class="form-label-group">
   <input type="date" value="${birthdate}" id="inputSpecies" class="form-control" name="birthdate" >

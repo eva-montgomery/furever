@@ -1,51 +1,57 @@
 ${header}
 ${nav}
 
-<div class="container-fluid">
-  <div class="row no-gutter">
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
-      <!-- <img src="/images/signin.jpg" alt="cute pup"> -->
-    </div>
-    <div class="col-md-8 col-lg-6">
-      <div class="login d-flex align-items-center py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9 col-lg-8 mx-auto">
+<div class="container no-flex">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+
+
+
 
               <h3 class="login-heading mb-4">Edit your profile</h3>
               <form method="POST">
 
                 <div class="form-label-group">
-                  <label for="inputEmail">Username</label>
-                  <input type="text" id="inputUser" class="form-control" name="user_name" placeholder="Username"
-                    value="${user_name}">
+                  <input type="text" value="${user_name}" id="inputName" class="form-control" name="user_name" >
+                  <label for="Name">Username</label>
+                </div>
+            
+                <!-- <div class="form-label-group">
+                  <input type="password" value="${hash}" id="inputName" class="form-control" name="hash" >
+                  <label for="Password">Password</label>
+                </div>
+             -->
 
-                </div>
                 <div class="form-label-group">
-                  <label for="firstName">First Name</label>
-                  <input type="text" id="firstName" class="form-control" name="first_name" placeholder="First Name"
-                    value="${first_name}">
+                  <input type="text" value="${first_name}" id="inputName" class="form-control" name="first_name" >
+                  <label for="First Name">First Name</label>
                 </div>
-                <div class="form-label-group">
-                  <label for="lastName">Last Name</label>
-                  <input type="text" id="lastName" class="form-control" name="last_name" placeholder="Last Name"
-                    value="${last_name}">
-                </div>
-                <div class="form-label-group">
-                  <label for="email">E-Mail</label>
-                  <input type="text" id="email" class="form-control" name="email" placeholder="E-mail" value="${email}">
-                </div>
-                <div class="form-label-group">
-                  <label for="email">Phone number</label>
-                  <input type="text" id="phone" class="form-control" name="phone_number" placeholder="Phone number"
-                    value="${phone_number}">
-                </div>
-                <div class="form-label-group">
-                  <label for="location">City</label>
-                  <input type="text" id="location" class="form-control" name="user_location" placeholder="City"
-                    value="${user_location}">
 
+                <div class="form-label-group">
+                  <input type="text" value="${last_name}" id="inputName" class="form-control" name="last_name" >
+                  <label for="Last Name">Last Name</label>
                 </div>
+
+             
+                <div class="form-label-group">
+                  <input type="text" value="${email}" id="inputName" class="form-control" name="email" >
+                  <label for="Last Name">Email</label>
+                </div>
+
+                <div class="form-label-group">
+                  <input type="text" value="${phone_number}" id="inputName" class="form-control" name="phone_number" >
+                  <label for="Phone Number">Phone Number</label>
+                </div>
+             
+             
+                <div class="form-label-group">
+                  <input type="text" value="${user_location}" id="inputName" class="form-control" name="user_location" >
+                  <label for="City">City</label>
+                </div>
+             
+
                 <br>
                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                   type="submit">Save</button>
