@@ -225,7 +225,25 @@ color: #777;
   flex: 1 0 auto;
   flex-direction: column;
 
-  
+}
+
+.breed-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  /* flex-direction: column;
+  background-color: white; */
+}
+
+.card-body-breed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  font-size: 24px;
+  background-color: white;
+  text-align: center;
 
 }
 
