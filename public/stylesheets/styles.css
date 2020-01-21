@@ -4,6 +4,14 @@
 
 /* LANDING PAGE */
 
+.navbar-brand,
+.navbar-nav a {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
 .text-container {
   font-family: 'Kalam', cursive;
   text-align: center;
@@ -200,6 +208,7 @@ color: #777;
   /* display: flex; */
   justify-content: center;
   align-items: center;
+  
 
 }
 
@@ -227,3 +236,17 @@ background: linear-gradient(to right, #0062E6, #33AEFF);
 
 
 /* LOGIN */
+
+.petslist-card { 
+ 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 20px auto;
+  /* text-align: center; */
+  font-family: arial;
+  background-color: white;
+}
+.petslist-title {
+  color: black;
+  font-size: 18px;
+}

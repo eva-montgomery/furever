@@ -1,8 +1,6 @@
 ${header}
 ${nav}
-
 <h1>Here are my pets</h1>
-
 ${userPets.map(pet => `
 <div class="card">
   <h1>Hi my name is ${pet.name}! </h1>
@@ -17,10 +15,10 @@ ${userPets.map(pet => `
     <li>I am located in ${pet.pet_location}</li>
   </ul>
   <p>${pet.pet_description}</p>
-
   <p><a href="/breed/${pet.breed_id}" class="button">Breed Information</a></p>
   <p><a href="/pets/${pet.id}/edit" class="button">Edit</a></p>
 </div>
 `).join('')}
-
 ${footer}
+new messages
+
