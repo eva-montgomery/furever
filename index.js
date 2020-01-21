@@ -366,7 +366,7 @@ app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
 app.get('/breed/:id', async (req, res) => {
     const breed = await breeds.getBreedInfo(req.params.id);
 
-    res.render('/pets/breed', {
+    res.render('pets/breed', {
         locals: {
             ...breed
         },
