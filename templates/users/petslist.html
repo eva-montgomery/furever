@@ -1,6 +1,14 @@
 ${header}
 ${nav}
+<br>
+<div class="text-container">
+  <h2>💜 Please take a look at all of these furry cuties looking for their furever family! 💜</h2>
+  <br>
+  <h2>💜 Will you be the one? 💜 </h2>
+
+</div>
 ${thePets.map(pet => `
+
 <div class="container">
 <br>
 
@@ -19,14 +27,14 @@ ${thePets.map(pet => `
     <li>I am located in ${pet.pet_location}</li>
   </ul>
   <p class="card-text">${pet.pet_description}</p>
+
   <a href="/breed/${pet.breed_id}" class="btn btn-primary">Breed Information</a>
   <a href="/pets/${pet.id}/edit" class="btn btn-primary">Update</a>
-
-
 </div>
 </div>
 </div>
 
 
 `).join('')}
+<br>
 ${footer}
