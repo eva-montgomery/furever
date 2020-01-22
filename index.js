@@ -352,19 +352,19 @@ app.get('/mypets', requireLogin, async (req, res) => {
 // });
 
 ///// PROFILE ///////
-app.get('/profile', requireLogin, async (req, res) => {
-    const theUser = await users.getUser(req.param.id);
-    res.render('users/profile', {
-        locals: {
-            ...theUser,
-        },
-        partials
-    });
-});
+// app.get('/profile', requireLogin, async (req, res) => {
+//     const theUser = await users.getUser(req.param.id);
+//     res.render('users/profile', {
+//         locals: {
+//             ...theUser,
+//         },
+//         partials
+//     });
+// });
 
 ////// UPDATE USER PROFILE /////////
 
-app.get('/profile/edit', requireLogin, async (req, res) => {
+app.get('/profile', requireLogin, async (req, res) => {
     const id = req.session.users.id
     const userProfile = await users.getById(id);
     res.render('users/edit-profile', {
@@ -374,16 +374,16 @@ app.get('/profile/edit', requireLogin, async (req, res) => {
         partials
     });
 });
-app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
+app.post('/profile', requireLogin, parseForm, async (req, res) => {
     const { user_name, first_name, last_name, email, phone_number, user_location } = req.body;
     const id = req.session.users.id
     const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, user_location);
     console.log(result)
     console.log("received profile edit")
     if (result) {
-        res.redirect(`/profile/edit`);
+        res.redirect(`/profile`);
     } else {
-        res.redirect(`/profile/edit`)
+        res.redirect(`/profile`)
     }
 });
 
