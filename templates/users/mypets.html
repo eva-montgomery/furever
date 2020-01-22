@@ -8,6 +8,7 @@ ${nav}
 
 ${userPets.map(pet => `
   <div class="container">
+    <div class="pet-container">
     <div class="card" style="width:400px">
 
 
@@ -27,6 +28,7 @@ ${userPets.map(pet => `
   <a href="/breed/${pet.breed_id}" class="btn btn-primary">Breed Information</a>
   <a href="/pets/${pet.id}/edit" class="btn btn-primary">Update</a>
 
+</div>
 </div>
 </div>
 </div>
