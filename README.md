@@ -9,7 +9,7 @@
 - Recommended:
     - Allow user login, with passwords encrypted with bcrypt.
 
-## Furver
+## Furever
 
 ### Authors  
 * Eva Montgomery 
@@ -19,9 +19,23 @@
 ## Project Description  
 Furver is a pet adoption website which lets the user list a pet for adoption or find an adoptable pet. The inital idea was to create a website similar to a "matchmaking" page like Tinder or match.com
 
+#### SQL DATABASES CREATES
+* User Database
+* Breed Database
+* Pet Database
+* Adoption Status
 
+#### FRAMEWORKS
+* express
+* multer
+* es6Renderer
+* bodyParser
+* parseForm
+* morgan
+* logger
+* helmet
+* session
 
-#### USER INPUT 
 
 
 
@@ -42,6 +56,8 @@ Furver is a pet adoption website which lets the user list a pet for adoption or 
 * Add further functionalities e.g. contact method, all breeds
 * Swipe / Carousel functionalities for listed pets
 * Integrate API's (e.g. Petfinder)
+* Add more media queries 
+* Different account types for users (wanting to adopt a pet) and admins (can list pets for adotion)
 
 
 
