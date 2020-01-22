@@ -48,6 +48,8 @@ Furver is a pet adoption website which lets the user list a pet for adoption or 
 
 
 #### SCREEN SHOTS 
+![Screen Shot 2020-01-22 at 10 29 13 AM](https://user-images.githubusercontent.com/55462764/72907581-0fa63080-3d02-11ea-9f18-1d9287a8049b.png)
+
 <img width="1427" alt="Screen Shot 2020-01-22 at 10 19 15 AM" src="https://user-images.githubusercontent.com/55462764/72906879-e9cc5c00-3d00-11ea-9932-799a8264a7a8.png">
 
 ![Screen Shot 2020-01-22 at 10 22 39 AM](https://user-images.githubusercontent.com/55462764/72907174-7414c000-3d01-11ea-96fa-3469e722fcf3.png)
