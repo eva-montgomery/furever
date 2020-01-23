@@ -79,28 +79,7 @@ function requireLogin(req, res, next) {
     }
 };
 
-///////// SEE PETS - FUNCTIONS //////////
-// get all pets
-// app.get('/pets', requireLogin, async (req, res) => {
-//     const allPets = [];
-//     const thePets = await pets.allPets();
-//     res.json(thePets);
-    // res.render('pets', {
-    //     locals: {
-    //         ...thePets,
-    //     },
-    //     partials
-    // });
-  
-// });
-///////// SEE PETS - FUNCTIONS //////////
-// get all pets
-// app.get('/pets', async (req, res) => {
-//     const allPets = [];
-//     const thePets = await pets.allPets();
-//     res.json(thePets);
-//    TODO: Rahel fix this to return all the pets from the database using the same concept as /profile
-// });
+
 
 // see all Pets
 app.get('/petslist', requireLogin, async (req, res) => {
@@ -136,14 +115,6 @@ app.get('/pets/:id(\\d+)/', async (req, res) => {
 });
 
 
-
-
-
-// get pet by breed --> not working
-// app.get('/pets/:breed',async (req, res)=> {
-//     console.log(pets.getPet(req.params.breed_id));
-//     res.json(await pets.getPetByBreed(req.params.breed_id));
-// });
 
 
 // CREATING A NEW PET
@@ -323,44 +294,7 @@ app.get('/mypets', requireLogin, async (req, res) => {
         partials
     });
 });
-// "Profile" - list pets for this owner
 
-// WE NEED THE USER INFORMATION IN THE PROFILE AS WELL
-// app.get('/profile', requireLogin, async (req, res) => {
-//     const theUser = await users.getUser(req.params.id);
-//     res.render('users/profile', {
-//        locals: {
-//            ...theUser,
-//        },
-//        partials
-//    });
-//   res.send(`Hello ${req.session.users.user_name}! It's time to find your pawesome match!`)
-// "Profile" - list pets for this owner
-
-// app.get('/mypets', requireLogin, async (req, res) => {
-//     const id = req.session.users.id
-//     const userPets = await pets.getAllPetsByUserId(id);
-//     const theUser = await users.getUser(id);
-
-//     res.render('users/mypets', {
-//         locals: {
-//             ...theUser,
-//             ...userPets,
-//         },
-//         partials
-//     });
-// });
-
-///// PROFILE ///////
-// app.get('/profile', requireLogin, async (req, res) => {
-//     const theUser = await users.getUser(req.param.id);
-//     res.render('users/profile', {
-//         locals: {
-//             ...theUser,
-//         },
-//         partials
-//     });
-// });
 
 ////// UPDATE USER PROFILE /////////
 
@@ -388,33 +322,6 @@ app.post('/profile', requireLogin, parseForm, async (req, res) => {
 });
 
 
-// OLD
-// app.get('/profile/edit', requireLogin, async (req, res) => {
-
-//     const { id } = req.params;
-//     const userProfile = await users.getUser(id);
-//     // const id = req.session.users.id
-//     // const userProfile = await users.getById(id);
-
-//     res.render('users/edit-profile', {
-//         locals: {
-//             ...userProfile,
-//         },
-//         partials
-//     });
-
-// });
-
-// app.post('/profile/edit', requireLogin, parseForm, async (req, res) => {
-//     const { user_name, first_name, last_name, email, phone_number, user_location } = req.body;
-//     const id = req.session.users.id
-//     const result = await users.updateUser(id, user_name, first_name, last_name, email, phone_number, user_location);
-//     if (result) {
-//         res.redirect(`/profile`);
-//     } else {
-//         res.redirect(`/profile/edit`)
-//     }
-// });
 
 // Get breed information
 app.get('/breed/:id', async (req, res) => {
