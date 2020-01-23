@@ -17,7 +17,9 @@
 
 
 ## Project Description  
-Furver is a pet adoption website which lets the user list a pet for adoption or find an adoptable pet. The inital idea was to create a website similar to a "matchmaking" page like Tinder or match.com. 
+FurEver is a pet adoption website. The initial idea was, to create a website similar to a "matchmaking" page like Tinder or match.com. The current version lets a user browse through "adoptable" dogs and gives them also the option to list or edit a dog.
+
+
 
 #### SQL DATABASES CREATES
 * User Database
