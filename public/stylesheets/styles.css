@@ -2,7 +2,17 @@
   box-sizing: border-box;
 }
 
+
+html,
+body {
+height: 100%;
+width: 100%;
+}
+
+
 /* LANDING PAGE */
+
+
 
 .navbar-brand,
 .navbar-nav a {
@@ -10,6 +20,7 @@
     font-size: 24px;
     font-weight: 900;
     letter-spacing: 3px;
+
 }
 
 .text-container {
@@ -17,6 +28,8 @@
   text-align: center;
   font-weight: 900;
   font-variant: small-caps;
+
+
 }
 
 
@@ -265,11 +278,6 @@ color: #777;
 }
 
 /* Sticky Footer Classes */
-
-html,
-body {
-height: 100%;
-}
 
 #page-content {
 flex: 1 0 auto;
